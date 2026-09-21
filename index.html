@@ -38,15 +38,12 @@
         <span>ISMAEL<span class="text-gradient">.RPA</span></span>
       </a>
 
-      <div class="logo-status">
-        <span class="pulse-dot"></span>
-        <span>Disponível para novos projetos</span>
-      </div>
+
 
       <nav>
         <ul class="nav-links" id="nav-links">
           <li><a href="#hero" class="nav-link">Início</a></li>
-          <li><a href="#skills" class="nav-link">Arsenal</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
           <li><a href="#projetos" class="nav-link">Projetos Reais</a></li>
           <li><a href="#roi-calc" class="nav-link">Simulador ROI</a></li>
           <li><a href="#processo" class="nav-link">Metodologia</a></li>
@@ -72,8 +69,8 @@
 
   <!-- HERO SECTION -->
   <section class="hero-section" id="hero">
-    <div class="container hero-grid">
-      <!-- Coluna da Esquerda: Pitch & CTAs -->
+    <div class="container hero-grid hero-grid--split">
+      <!-- Coluna Esquerda: Pitch & CTAs -->
       <div class="hero-content">
         <div class="hero-badge">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
@@ -84,6 +81,12 @@
           Olá, sou <span class="text-gradient">Ismael Nascimento</span>.<br>
           Desenvolvedor RPA & Python.
         </h1>
+
+        <a href="#contato" class="hero-availability-badge">
+          <span class="pulse-dot"></span>
+          <span>Disponível para novos projetos</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
 
         <p class="hero-subtitle">
           Especialista em construir robôs autônomos de alta resiliência integrados ao <strong>SAP ERP</strong>, automações web com <strong>Playwright</strong>, processamento de dados com <strong>Pandas</strong> e distribuição de aplicações completas com auto-update.
@@ -102,25 +105,202 @@
             <span>Simulador de ROI</span>
           </a>
         </div>
+      </div>
 
-        <div class="hero-badges-list">
-          <div class="hero-mini-tag">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span>SAP GUI Scripting (pywin32)</span>
+      <!-- Coluna Direita: Métricas de Impacto (empilhadas) -->
+      <div class="hero-metrics-col">
+        <div class="hero-metrics-col-title">Impacto em Produção</div>
+        <div class="hero-metric-item">
+          <div class="metric-number">+45.000h</div>
+          <div class="metric-label">Horas Operacionais Economizadas</div>
+        </div>
+        <div class="hero-metric-item">
+          <div class="metric-number">100%</div>
+          <div class="metric-label">Precisão em Lançamentos SAP</div>
+        </div>
+        <div class="hero-metric-item">
+          <div class="metric-number">+10 Módulos</div>
+          <div class="metric-label">Rotinas Logísticas e Fiscais Ativas</div>
+        </div>
+        <div class="hero-metric-item">
+          <div class="metric-number">Zero Falhas</div>
+          <div class="metric-label">Tratamento Resiliente de Pop-ups</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS DE ENGENHARIA PARA RPA -->
+  <section class="section" id="skills">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">TECNOLOGIAS & FERRAMENTAS</div>
+        <h2 class="section-title">Minhas Skills de Engenharia para <span class="text-gradient">RPA</span></h2>
+        <p class="section-desc">Tecnologias que domino e aplico no dia a dia para construir soluções resilientes integradas a sistemas legados e na nuvem.</p>
+      </div>
+
+      <div class="skills-grid">
+        <!-- Card 1: SAP & Core -->
+        <div class="skill-category-card reveal">
+          <div class="skill-category-header">
+            <div class="skill-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            </div>
+            <h3 class="skill-category-title">SAP ERP &amp; Python Core</h3>
           </div>
-          <div class="hero-mini-tag">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span>Playwright Headless Web RPA</span>
+          <div class="skills-badge-wrap">
+            <span class="tech-badge tech-badge--featured tech-badge--python">
+              <svg width="18" height="18" viewBox="0 0 256 255" xmlns="http://www.w3.org/2000/svg"><path d="M126.9.2C57.1.2 61.4 29 61.4 29l.1 30h66.6v9H39.4S0 63.5 0 128.1c0 64.6 34.4 62.3 34.4 62.3h20.5v-30s-1.1-34.4 33.9-34.4h58.4s32.8.5 32.8-31.7V33.9S185.2.2 126.9.2zM92.1 19.6a10.8 10.8 0 1 1 0 21.6 10.8 10.8 0 0 1 0-21.6z" fill="#366B9C"/><path d="M128.7 254.5c69.8 0 65.5-28.8 65.5-28.8l-.1-30h-66.6v-9h88.7s39.4 4.7 39.4-59.9c0-64.6-34.4-62.3-34.4-62.3h-20.5v30s1.1 34.4-33.9 34.4h-58.4s-32.8-.5-32.8 31.7v60.4s-5.2 33.5 53.1 33.5zm34.8-19.4a10.8 10.8 0 1 1 0-21.6 10.8 10.8 0 0 1 0 21.6z" fill="#FFD23E"/></svg>
+              Python 3.12+
+            </span>
+            <span class="tech-badge tech-badge--featured tech-badge--sap">
+              <svg width="18" height="18" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><rect width="64" height="64" rx="6" fill="#0053B1"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="22" fill="#fff">SAP</text></svg>
+              SAP GUI Scripting
+            </span>
+            <span class="tech-badge tech-badge--featured">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4FC1FF" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+              pywin32 (COM Objects)
+            </span>
+            <span class="tech-badge tech-badge--featured tech-badge--sap">
+              <svg width="18" height="18" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><rect width="64" height="64" rx="6" fill="#0053B1" opacity="0.8"/><text x="50%" y="40%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="10" fill="#fff">TXN</text><text x="50%" y="68%" dominant-baseline="middle" text-anchor="middle" font-family="Arial,sans-serif" font-weight="600" font-size="7" fill="rgba(255,255,255,0.7)">MIGO</text></svg>
+              MIGO / PRDI / ADGI
+            </span>
+            <span class="tech-badge tech-badge--featured tech-badge--pandas">
+              <svg width="18" height="18" viewBox="0 0 210.21 280.43" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h109.7l100.5 140.2L109.7 280.4H0l100.5-140.2Z" fill="#130754"/><path d="M56 93.5h98.3l56 46.7-56 46.7H56l56-46.7Z" fill="#FFCA00"/></svg>
+              Pandas
+            </span>
+            <span class="tech-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+              OpenPyXL
+            </span>
+            <span class="tech-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+              SQLite
+            </span>
           </div>
-          <div class="hero-mini-tag">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span>Auto-Update via Git & PyInstaller</span>
+        </div>
+
+        <!-- Card 2: RPA & Web Scraping -->
+        <div class="skill-category-card reveal">
+          <div class="skill-category-header">
+            <div class="skill-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+            </div>
+            <h3 class="skill-category-title">Web RPA &amp; Playwright</h3>
+          </div>
+          <div class="skills-badge-wrap">
+            <span class="tech-badge tech-badge--featured tech-badge--playwright">
+              <svg width="18" height="18" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"><path d="M161 18.5C89.7 35.4 35.4 89.7 18.5 161c-25.8 108.5 47 216.1 155.4 235.5 61.2 10.9 120.5-9 162.2-48L200 200V18.1c-13.1-.7-26.3-.4-39 .4z" fill="#2D9F48"/><path d="M200 18.1V200l136.1 148.5c60.7-59.2 75.3-152.3 29.4-226.7C333.2 69.8 270.7 23.1 200 18.1z" fill="#E2574C"/><path d="M200 200L336.1 348.5c-3.9 3.6-8 7.1-12.2 10.5L200 200z" fill="#D65348"/></svg>
+              Playwright
+            </span>
+            <span class="tech-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#43b02a" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+              Selenium
+            </span>
+            <span class="tech-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2"><path d="M3 3h18v18H3z"></path><path d="M9 3v18"></path><path d="M15 3v18"></path><path d="M3 9h18"></path><path d="M3 15h18"></path></svg>
+              Portais de Cabotagem
+            </span>
+            <span class="tech-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10"></path><path d="M22 12c0-5.52-4.48-10-10-10"></path><path d="M15 9l-3 3 3 3"></path></svg>
+              BeautifulSoup4
+            </span>
+            <span class="tech-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+              Regex Avançado
+            </span>
+            <span class="tech-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line></svg>
+              Bypass de Popups &amp; Modais
+            </span>
+          </div>
+        </div>
+
+        <!-- Card 3: Interfaces & Desktop -->
+        <div class="skill-category-card reveal">
+          <div class="skill-category-header">
+            <div class="skill-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            </div>
+            <h3 class="skill-category-title">Interfaces &amp; Empacotamento</h3>
+          </div>
+          <div class="skills-badge-wrap">
+            <span class="tech-badge tech-badge--featured tech-badge--flask">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Flask (WebUI Local)
+            </span>
+            <span class="tech-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M8 21h8"></path><path d="M12 17v4"></path><path d="M7 10h2"></path><path d="M15 10h2"></path></svg>
+              CustomTkinter
+            </span>
+            <span class="tech-badge tech-badge--featured tech-badge--pyinstaller">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"></rect><path d="M12 6V2"></path><path d="M7 2h10"></path></svg>
+              PyInstaller (.exe autônomo)
+            </span>
+            <span class="tech-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f472b6" stroke-width="2"><path d="M12 2L2 7l10 5 10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+              HTML5 / CSS3 Dark Mode
+            </span>
+            <span class="tech-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.78 7.78 5.5 5.5 0 0 1 7.78-7.78zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+              Auto-Update via Git
+            </span>
+            <span class="tech-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fb923c" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M12 18v-6"></path><path d="M9 15l3 3 3-3"></path></svg>
+              ReportLab (PDFs)
+            </span>
+          </div>
+        </div>
+
+        <!-- Card 4: Integrações Nuvem & DevOps -->
+        <div class="skill-category-card reveal">
+          <div class="skill-category-header">
+            <div class="skill-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+            </div>
+            <h3 class="skill-category-title">Nuvem, SharePoint &amp; Git</h3>
+          </div>
+          <div class="skills-badge-wrap">
+            <span class="tech-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="none" stroke="#0078d4" stroke-width="1.5"/><path d="M11 8h2v2h-2zm-3 3h2v2H8zm3 0h2v2h-2zm3 0h2v2h-2zm-6 3h2v2H8zm3 0h2v2h-2zm3 0h2v2H8z" fill="#0078d4" opacity="0.8"/></svg>
+              Microsoft SharePoint
+            </span>
+            <span class="tech-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f05032" stroke-width="2"><circle cx="18" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><path d="M13 6h3a2 2 0 0 1 2 2v7"></path><path d="M6 9v12"></path></svg>
+              Git &amp; GitHub
+            </span>
+            <span class="tech-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              GitHub Pages
+            </span>
+            <span class="tech-badge tech-badge--featured tech-badge--docker">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 4h-2v2h2V4zm-4 0H7v2h2V4zM5 4H3v2h2V4zm4 4H7v2h2V8zM5 8H3v2h2V8zm8 0h-2v2h2V8zm-4-4H7v2h2V4z" fill="#2496ED"/><path d="M22.5 10.5c-.7-.4-2.3-.5-3.5-.2-.2-1.3-.9-2.5-1.8-3.4l-.7-.7-.7.7c-1 .9-1.3 2.5-1.2 3.7-1 .5-2.9.6-3.6.6H1.1c-.3 1.7-.3 3.3 0 5 .7 2.5 2.2 4.5 4.3 5.8 2.4 1.4 6.3 1.8 10.2.2 3-1.2 5.4-3.4 7-6.3 1.2 0 3.7.1 5-2.4l.3-.6-1.3-.7-.7-.4z" fill="#2496ED"/></svg>
+              Docker &amp; Compose
+            </span>
+            <span class="tech-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2"><path d="M12 2v4"></path><path d="M12 18v4"></path><path d="M4.93 4.93l2.83 2.83"></path><path d="M16.24 16.24l2.83 2.83"></path><path d="M2 12h4"></path><path d="M18 12h4"></path><path d="M4.93 19.07l2.83-2.83"></path><path d="M16.24 7.76l2.83-2.83"></path></svg>
+              CI/CD Pipelines
+            </span>
+            <span class="tech-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+              PowerShell &amp; Batch Scripting
+            </span>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Coluna da Direita: Terminal Interativo com Scripts Reais -->
-      <div class="hero-visual">
+  <!-- TERMINAL INTERATIVO (SEÇÃO SEPARADA) -->
+  <section class="section terminal-showcase-section" id="terminal-demo">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">LIVE DEMO</div>
+        <h2 class="section-title">Robôs em <span class="text-gradient">Execução Real</span></h2>
+        <p class="section-desc">Veja os logs reais dos scripts Python rodando em produção — automações de cabotagem, fretes e estoque no SAP.</p>
+      </div>
+
+      <div class="terminal-showcase-wrapper reveal">
         <div class="terminal-card">
           <div class="terminal-header">
             <div class="terminal-controls">
@@ -157,116 +337,6 @@
               <span>Executando automação real</span>
             </div>
             <div>GitHub: ismaeoopi/rpa_Expedicao</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BANNER DE MÉTRICAS & IMPACTO -->
-  <section class="metrics-section">
-    <div class="container">
-      <div class="metrics-grid">
-        <div class="metric-card reveal">
-          <div class="metric-number">+45.000h</div>
-          <div class="metric-label">Horas Operacionais Economizadas</div>
-        </div>
-        <div class="metric-card reveal">
-          <div class="metric-number">100%</div>
-          <div class="metric-label">Precisão em Lançamentos SAP</div>
-        </div>
-        <div class="metric-card reveal">
-          <div class="metric-number">+10 Módulos</div>
-          <div class="metric-label">Rotinas Logísticas e Fiscais Ativas</div>
-        </div>
-        <div class="metric-card reveal">
-          <div class="metric-number">Zero Falhas</div>
-          <div class="metric-label">Tratamento Resiliente de Pop-ups</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ARSENAL TECNOLÓGICO (TECH STACK) -->
-  <section class="section" id="skills">
-    <div class="container">
-      <div class="section-header reveal">
-        <div class="section-tag">TECNOLOGIAS & FERRAMENTAS</div>
-        <h2 class="section-title">Meu Arsenal de Engenharia para <span class="text-gradient">RPA</span></h2>
-        <p class="section-desc">Tecnologias que domino e aplico no dia a dia para construir soluções resilientes integradas a sistemas legados e na nuvem.</p>
-      </div>
-
-      <div class="skills-grid">
-        <!-- Card 1: SAP & Core -->
-        <div class="skill-category-card reveal">
-          <div class="skill-category-header">
-            <div class="skill-icon-wrapper">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-            </div>
-            <h3 class="skill-category-title">SAP ERP & Python Core</h3>
-          </div>
-          <div class="skills-badge-wrap">
-            <span class="tech-badge">Python 3.12+</span>
-            <span class="tech-badge">SAP GUI Scripting</span>
-            <span class="tech-badge">pywin32 (COM Objects)</span>
-            <span class="tech-badge">MIGO / PRDI / ADGI</span>
-            <span class="tech-badge">Pandas</span>
-            <span class="tech-badge">OpenPyXL</span>
-            <span class="tech-badge">SQLite</span>
-          </div>
-        </div>
-
-        <!-- Card 2: RPA & Web Scraping -->
-        <div class="skill-category-card reveal">
-          <div class="skill-category-header">
-            <div class="skill-icon-wrapper">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
-            </div>
-            <h3 class="skill-category-title">Web RPA & Playwright</h3>
-          </div>
-          <div class="skills-badge-wrap">
-            <span class="tech-badge">Playwright</span>
-            <span class="tech-badge">Selenium</span>
-            <span class="tech-badge">Portais de Cabotagem</span>
-            <span class="tech-badge">BeautifulSoup4</span>
-            <span class="tech-badge">Regex Avançado</span>
-            <span class="tech-badge">Bypass de Popups & Modais</span>
-          </div>
-        </div>
-
-        <!-- Card 3: Interfaces & Desktop -->
-        <div class="skill-category-card reveal">
-          <div class="skill-category-header">
-            <div class="skill-icon-wrapper">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-            </div>
-            <h3 class="skill-category-title">Interfaces & Empacotamento</h3>
-          </div>
-          <div class="skills-badge-wrap">
-            <span class="tech-badge">Flask (WebUI Local)</span>
-            <span class="tech-badge">CustomTkinter</span>
-            <span class="tech-badge">PyInstaller (.exe autônomo)</span>
-            <span class="tech-badge">HTML5 / CSS3 Dark Mode</span>
-            <span class="tech-badge">Auto-Update via Git</span>
-            <span class="tech-badge">ReportLab (PDFs)</span>
-          </div>
-        </div>
-
-        <!-- Card 4: Integrações Nuvem & DevOps -->
-        <div class="skill-category-card reveal">
-          <div class="skill-category-header">
-            <div class="skill-icon-wrapper">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
-            </div>
-            <h3 class="skill-category-title">Nuvem, SharePoint & Git</h3>
-          </div>
-          <div class="skills-badge-wrap">
-            <span class="tech-badge">Microsoft SharePoint</span>
-            <span class="tech-badge">Git & GitHub</span>
-            <span class="tech-badge">GitHub Pages</span>
-            <span class="tech-badge">Docker & Compose</span>
-            <span class="tech-badge">CI/CD Pipelines</span>
-            <span class="tech-badge">PowerShell & Batch Scripting</span>
           </div>
         </div>
       </div>
