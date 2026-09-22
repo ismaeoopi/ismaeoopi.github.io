@@ -5,6 +5,69 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Toast Helper
+  const toastMsg = document.getElementById('toast-msg');
+  function showToast(message) {
+    if (!toastMsg) return;
+    toastMsg.querySelector('.toast-text').textContent = message;
+    toastMsg.classList.add('show');
+    setTimeout(() => {
+      toastMsg.classList.remove('show');
+    }, 3200);
+  }
+
+  // 0. Gerenciador de Tema Dinâmico (Light & Dark Mode)
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function getSystemPreference() {
+    return mediaQuery.matches ? 'dark' : 'light';
+  }
+
+  function applyTheme(theme, isUserAction = false) {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+
+    if (themeToggleBtn) {
+      const nextThemeName = theme === 'dark' ? 'claro' : 'escuro';
+      themeToggleBtn.setAttribute('title', `Alternar para tema ${nextThemeName}`);
+      themeToggleBtn.setAttribute('aria-label', `Alternar para tema ${nextThemeName}`);
+    }
+
+    if (isUserAction) {
+      localStorage.setItem('portfolio-theme', theme);
+      const msg = theme === 'light'
+        ? '☀️ Visualização Recrutador: Tema Claro ativado'
+        : '🌙 Tema Escuro ativado';
+      showToast(msg);
+    }
+  }
+
+  // Define tema inicial
+  const savedTheme = localStorage.getItem('portfolio-theme');
+  if (savedTheme === 'light' || savedTheme === 'dark') {
+    applyTheme(savedTheme, false);
+  } else {
+    applyTheme(getSystemPreference(), false);
+  }
+
+  // Evento de clique no botão
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || getSystemPreference();
+      const nextTheme = current === 'dark' ? 'light' : 'dark';
+      applyTheme(nextTheme, true);
+    });
+  }
+
+  // Acompanha alterações do sistema operacional caso o usuário não tenha escolhido manualmente
+  mediaQuery.addEventListener('change', (e) => {
+    const userChoice = localStorage.getItem('portfolio-theme');
+    if (!userChoice) {
+      applyTheme(e.matches ? 'dark' : 'light', false);
+    }
+  });
+
   // 1. Header scroll effect
   const header = document.getElementById('header');
   window.addEventListener('scroll', () => {
@@ -80,6 +143,13 @@ document.addEventListener('DOMContentLoaded', () => {
       problem: 'Empresas lidam com dados fragmentados em planilhas desconexas para controle de estoque, compras, produção e fechamento financeiro, além de travarem suas vendas sempre que há oscilação de internet.',
       solution: 'Arquitetura e desenvolvimento full stack de um sistema de gestão integrado em nuvem (SaaS) com suporte a multiempresas, controle rigoroso de ficha técnica (BOM), fluxo de caixa, relatórios analíticos e PDV desktop offline com sincronização automática com o servidor.',
       impact: 'Unificação 360° de vendas, suprimentos e finanças, operação de venda ininterrupta mesmo sem conexão com a internet e suporte especializado integrado.',
+      telemetry: {
+        startDate: '01/01/2026',
+        formula: 'Multiempresa Cloud + Fila Assíncrona Offline-First no PDV',
+        dailySavings: '100% de Uptime nas Vendas (Zero paradas por instabilidade de rede)',
+        benchmark: 'Gestão 360° em produção ativa (Estoque, BOM, Finanças e Pedidos)',
+        impactDesc: 'Plataforma SaaS corporativa comercial que unifica múltiplos estabelecimentos, eliminando perdas de insumos e divergências fiscais.'
+      },
       techs: ['SaaS Multi-tenant', 'Gestão de Estoque & BOM', 'PDV Offline-First', 'Arquitetura Cloud', 'REST API', 'JavaScript', 'TailwindCSS'],
       codeSnippet: `// Sincronização resiliente de transações offline do PDV (Purple System)
 export async function syncOfflineSales(tenantId, offlineQueue) {
@@ -242,6 +312,13 @@ def processar_packlist_e_migo(planilha_path: str):
       problem: 'Necessidade de um canal digital profissional para apresentar serviços e soluções da empresa com alta velocidade de carregamento e adaptação mobile.',
       solution: 'Construção frontend com HTML5 semântico, arquitetura CSS3 moderna, JavaScript limpo e configuração de publicação contínua no GitHub Pages.',
       impact: 'Tempo de carregamento abaixo de 1 segundo, nota máxima em SEO e boas práticas, layout fluido em todos os dispositivos.',
+      telemetry: {
+        startDate: '10/06/2026',
+        formula: 'Frontend Vanilla Semântico + Deploy Automatizado GitHub Pages CI/CD',
+        dailySavings: '<1s tempo de carga (Score 100/100 Core Web Vitals no Google)',
+        benchmark: 'Custo de infraestrutura R$ 0,00 com 99,99% de disponibilidade global',
+        impactDesc: 'Plataforma web de altíssima velocidade e acessibilidade institucional com pipeline contínua de entrega de código.'
+      },
       techs: ['HTML5 Semântico', 'CSS3 Moderno', 'JavaScript Vanilla', 'GitHub Pages', 'SEO', 'Mobile First'],
       codeSnippet: `<!-- Estrutura moderna responsiva com deploy no GitHub Pages -->
 <!DOCTYPE html>
@@ -357,16 +434,6 @@ def processar_packlist_e_migo(planilha_path: str):
 
   // 6. Copiar E-mail com Toast Notification
   const copyEmailBtn = document.getElementById('copy-email-btn');
-  const toastMsg = document.getElementById('toast-msg');
-
-  function showToast(message) {
-    if (!toastMsg) return;
-    toastMsg.querySelector('.toast-text').textContent = message;
-    toastMsg.classList.add('show');
-    setTimeout(() => {
-      toastMsg.classList.remove('show');
-    }, 3500);
-  }
 
   if (copyEmailBtn) {
     copyEmailBtn.addEventListener('click', () => {

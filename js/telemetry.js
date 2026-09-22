@@ -238,33 +238,52 @@
     if (elTotalOfs) elTotalOfs.textContent = formatNumber(metrics.consolidated.totalOfs);
     if (elDailyRate) elDailyRate.textContent = `${formatNumber(metrics.consolidated.dailyHours, 1)}h / dia útil`;
 
-    // 3. Card Cabotagem
+    // 3. Card Cabotagem (Banner + Grid)
     const elCabotOfs = document.getElementById('card-cabot-ofs');
     const elCabotHours = document.getElementById('card-cabot-hours');
     const elCabotSavedDesc = document.getElementById('card-cabot-desc');
+    const elCabotOfsGrid = document.getElementById('card-cabot-ofs-grid');
+    const elCabotHoursGrid = document.getElementById('card-cabot-hours-grid');
+    const elCabotDescGrid = document.getElementById('card-cabot-desc-grid');
 
     if (elCabotOfs) elCabotOfs.textContent = formatNumber(metrics.cabotagem.totalOfs);
     if (elCabotHours) elCabotHours.textContent = formatDuration(metrics.cabotagem.totalSeconds);
+    if (elCabotOfsGrid) elCabotOfsGrid.textContent = `+${formatNumber(metrics.cabotagem.totalOfs)}`;
+    if (elCabotHoursGrid) elCabotHoursGrid.textContent = formatDuration(metrics.cabotagem.totalSeconds);
     if (elCabotSavedDesc) {
       elCabotSavedDesc.textContent = `${formatNumber(metrics.cabotagem.bDays)} dias úteis em produção (~${metrics.cabotagem.bDays * 20} OFs base)`;
     }
+    if (elCabotDescGrid) {
+      elCabotDescGrid.textContent = `${formatNumber(metrics.cabotagem.bDays)} dias úteis (20 OFs/dia)`;
+    }
 
-    // 4. Card Expedição
+    // 4. Card Expedição (Banner + Grid)
     const elExpHours = document.getElementById('card-exp-hours');
     const elExpDays = document.getElementById('card-exp-days');
     const elExpNfs = document.getElementById('card-exp-nfs');
     const elExpLabels = document.getElementById('card-exp-labels');
+    const elExpHoursGrid = document.getElementById('card-exp-hours-grid');
+    const elExpDaysGrid = document.getElementById('card-exp-days-grid');
+    const elExpNfsGrid = document.getElementById('card-exp-nfs-grid');
 
     if (elExpHours) elExpHours.textContent = formatNumber(metrics.expedicao.totalHours);
     if (elExpDays) elExpDays.textContent = `~${formatNumber(metrics.expedicao.daysSaved)} dias úteis economizados`;
     if (elExpNfs) elExpNfs.textContent = formatNumber(metrics.expedicao.totalNfs);
     if (elExpLabels) elExpLabels.textContent = `${formatNumber(metrics.expedicao.totalLabels)} etiquetas`;
+    if (elExpHoursGrid) elExpHoursGrid.textContent = `+${formatNumber(metrics.expedicao.totalHours)}h`;
+    if (elExpDaysGrid) elExpDaysGrid.textContent = `~${formatNumber(metrics.expedicao.daysSaved)} dias úteis poupados`;
+    if (elExpNfsGrid) elExpNfsGrid.textContent = `+${formatNumber(metrics.expedicao.totalNfs)}`;
 
-    // 5. Card Estoque
+    // 5. Card Estoque (Banner + Grid)
     const elEstHours = document.getElementById('card-est-hours');
     const elEstDays = document.getElementById('card-est-days');
+    const elEstHoursGrid = document.getElementById('card-est-hours-grid');
+    const elEstDaysGrid = document.getElementById('card-est-days-grid');
+
     if (elEstHours) elEstHours.textContent = formatNumber(metrics.estoque.totalHours);
     if (elEstDays) elEstDays.textContent = `~${formatNumber(metrics.estoque.daysSaved)} dias úteis`;
+    if (elEstHoursGrid) elEstHoursGrid.textContent = `+${formatNumber(metrics.estoque.totalHours)}h`;
+    if (elEstDaysGrid) elEstDaysGrid.textContent = `~${formatNumber(metrics.estoque.daysSaved)} dias úteis poupados`;
 
     // Feedback visual quando acionado
     if (triggerAnimation) {

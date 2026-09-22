@@ -23,6 +23,26 @@
   <!-- Estilos -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/animations.css">
+
+  <!-- Script Dinâmico Anti-FOUC para Seleção de Tema (Claro / Escuro) -->
+  <script>
+    (function() {
+      try {
+        const savedTheme = localStorage.getItem('portfolio-theme');
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+          document.documentElement.setAttribute('data-theme', savedTheme);
+          document.documentElement.style.colorScheme = savedTheme;
+        } else {
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const initialTheme = prefersDark ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', initialTheme);
+          document.documentElement.style.colorScheme = initialTheme;
+        }
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
 </head>
 <body>
 
@@ -33,10 +53,16 @@
   <!-- HEADER & NAVEGAÇÃO -->
   <header class="header" id="header">
     <div class="container nav-container">
-      <a href="#" class="logo">
-        <div class="logo-icon">&gt;_</div>
-        <span>ISMAEL<span class="text-gradient">.RPA</span></span>
-      </a>
+      <div class="logo-wrapper">
+        <a href="#" class="logo">
+          <div class="logo-icon">&gt;_</div>
+          <span>ISMAEL<span class="text-gradient">.RPA</span></span>
+        </a>
+        <a href="#contato" class="logo-availability-badge">
+          <span class="pulse-dot"></span>
+          <span>Disponível para novos projetos</span>
+        </a>
+      </div>
 
 
 
@@ -53,6 +79,24 @@
       </nav>
 
       <div class="nav-actions">
+        <!-- BOTÃO DE ALTERNÂNCIA DE TEMA (CLARO / ESCURO) -->
+        <button class="theme-toggle-btn" id="theme-toggle" aria-label="Alternar entre modo claro e escuro" title="Alternar tema claro/escuro">
+          <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
         <a href="https://github.com/ismaeoopi" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" title="Acessar GitHub">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
           <span>GitHub</span>
@@ -82,11 +126,7 @@
           Desenvolvedor RPA & Python.
         </h1>
 
-        <a href="#contato" class="hero-availability-badge">
-          <span class="pulse-dot"></span>
-          <span>Disponível para novos projetos</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-        </a>
+
 
         <p class="hero-subtitle">
           Especialista em construir robôs autônomos de alta resiliência integrados ao <strong>SAP ERP</strong>, automações web com <strong>Playwright</strong>, processamento de dados com <strong>Pandas</strong> e distribuição de aplicações completas com auto-update.
@@ -314,77 +354,40 @@
         <div class="section-tag">PROJETOS & PRODUTOS REAIS</div>
         <h2 class="section-title">Automações & Plataformas no <span class="text-gradient">Mundo Real</span></h2>
         <p class="section-desc">Sistemas SaaS comerciais e robôs corporativos em produção com código fonte, arquitetura escalável e métricas comprovadas.</p>
+        <div>
+          <div class="section-impact-rank-notice">
+            <span class="rank-indicator-pulse"></span>
+            <span>Organizado por ordem decrescente de ganho operacional &amp; retorno real (ROI)</span>
+          </div>
+        </div>
       </div>
 
 
       <!-- Filtros de Categorias -->
       <div class="project-filters reveal">
         <button class="filter-btn active" data-filter="all">Todos os Projetos</button>
-        <button class="filter-btn" data-filter="saas">SaaS & Gestão</button>
         <button class="filter-btn" data-filter="erp">SAP ERP & Logística</button>
-        <button class="filter-btn" data-filter="scraping">Playwright & Fretes</button>
         <button class="filter-btn" data-filter="desktop">Estoque & Packlists</button>
+        <button class="filter-btn" data-filter="scraping">Playwright & Fretes</button>
+        <button class="filter-btn" data-filter="saas">SaaS & Gestão</button>
         <button class="filter-btn" data-filter="web">Frontend & Web</button>
       </div>
 
-      <!-- Grid de Projetos Reais -->
+      <!-- Grid de Projetos Reais (Ordenados por Impacto e Ganho) -->
       <div class="projects-grid">
         
-        <!-- Projeto em Destaque Especial: Purple System SaaS -->
-        <div class="project-card reveal" data-category="saas" style="border-color: rgba(168, 85, 247, 0.4); box-shadow: 0 0 25px rgba(168, 85, 247, 0.15);">
-          <div class="project-banner" style="background: linear-gradient(135deg, #1e1136 0%, #2e1065 100%);">
-            <div class="project-banner-decor" style="background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, transparent 70%);"></div>
-            <div class="project-category-badge" style="color: #c084fc; border-color: rgba(168, 85, 247, 0.3); background: rgba(88, 28, 135, 0.4);">
-              ★ SaaS & Plataforma Comercial
-            </div>
-            <div class="project-banner-metrics">
-              <span class="banner-metric-item"><span class="metric-purple">Multiempresa</span> Cloud</span>
-              <span class="banner-metric-item"><span class="metric-purple">PDV</span> Offline-First</span>
-              <span class="banner-metric-item">Estoque, BOM &amp; Finanças</span>
-            </div>
-            <div class="project-banner-code" style="color: rgba(216, 180, 254, 0.7);">
-              &gt; purplesystem.com.br<br>
-              &gt; Architecture: Multi-tenant Cloud + Offline-First POS<br>
-              &gt; Modules: Estoque, Ficha Técnica (BOM), Financeiro, Pedidos
-            </div>
-          </div>
-          <div class="project-content">
-            <h3 class="project-title">Purple System | Plataforma SaaS de Gestão Integrada</h3>
-            <p class="project-desc">
-              Sistema de gestão integrada (ERP/SaaS) comercial em produção. Reúne controle de estoque, ficha técnica de produção (BOM), orçamentos, pedidos, financeiro completo (fluxo de caixa e comissões) e PDV desktop offline com sincronização automática em nuvem.
-            </p>
-            <div class="project-metrics-badge-wrap">
-              <span class="project-metric-pill" style="color: #c084fc; border-color: rgba(168, 85, 247, 0.3); background: rgba(168, 85, 247, 0.1);">⚡ Multiempresa & Multi-tenant</span>
-              <span class="project-metric-pill">📶 PDV Offline-First</span>
-              <span class="project-metric-pill">📊 Estoque & Ficha Técnica (BOM)</span>
-            </div>
-            <div class="project-tags">
-              <span class="project-tag">SaaS Multiempresa</span>
-              <span class="project-tag">Cloud SQL</span>
-              <span class="project-tag">PDV Offline</span>
-              <span class="project-tag">Gestão Financeira</span>
-              <span class="project-tag">REST APIs</span>
-            </div>
-            <div class="project-footer-actions">
-              <button class="project-modal-btn open-modal-trigger" data-project="purple-system">
-                <span>Ver Arquitetura & Detalhes</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
-              <a href="https://purplesystem.com.br/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" style="background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%); color: #fff;">
-                <span>Acessar Plataforma</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Projeto Real 1: RPA Expedição SAP -->
+        <!-- PROJETO 1 (TOP 1 GANHO): RPA Expedição SAP -->
         <div class="project-card reveal" data-category="erp">
           <div class="project-banner">
             <div class="project-banner-decor"></div>
-            <div class="project-category-badge">SAP ERP & Logística</div>
+            <div class="project-banner-top-left">
+              <div class="project-rank-tag rank-tag--gold">
+                <span>🥇 #1</span> Maior Ganho Operacional
+              </div>
+              <div class="project-category-badge">SAP ERP &amp; Logística</div>
+            </div>
             <div class="project-banner-metrics">
-              <span class="banner-metric-item"><span class="metric-highlight">3</span> usuários diretos</span>
+              <span class="banner-metric-item"><span class="metric-highlight">3</span> operadores diretos</span>
               <span class="banner-metric-item"><span id="card-exp-hours">1.092</span> horas Economizadas</span>
               <span class="banner-metric-item"><span id="card-exp-nfs">2.730</span> NF's recebidas</span>
             </div>
@@ -395,7 +398,27 @@
             </div>
           </div>
           <div class="project-content">
-            <h3 class="project-title">RPA Expedição & Estoque SAP | Automação Logística End-to-End</h3>
+            <h3 class="project-title">RPA Expedição &amp; Estoque SAP | Automação Logística End-to-End</h3>
+
+            <!-- Grid de KPIs em Destaque (Visão Recrutador) -->
+            <div class="project-impact-kpis">
+              <div class="impact-kpi-box kpi-emerald">
+                <span class="impact-kpi-num" id="card-exp-hours-grid">+1.092h</span>
+                <span class="impact-kpi-label">Horas Economizadas</span>
+                <span class="impact-kpi-sub" id="card-exp-days-grid">~137 dias úteis poupados</span>
+              </div>
+              <div class="impact-kpi-box kpi-cyan">
+                <span class="impact-kpi-num" id="card-exp-nfs-grid">+2.730</span>
+                <span class="impact-kpi-label">Notas Fiscais SAP</span>
+                <span class="impact-kpi-sub">Conferência 100% autônoma</span>
+              </div>
+              <div class="impact-kpi-box kpi-purple">
+                <span class="impact-kpi-num">12h / dia</span>
+                <span class="impact-kpi-label">Tempo de Equipe</span>
+                <span class="impact-kpi-sub">3 operadores x 4h/dia útil</span>
+              </div>
+            </div>
+
             <p class="project-desc">
               Solução corporativa completa empacotada em executável (.exe) autônomo com interface Dark Mode em Flask. Automatiza conferência de remessas, seleção de Unidades de Carga (UC), picking e geração de etiquetas FIP sem exigir instalação de Python nas máquinas dos operadores.
             </p>
@@ -414,7 +437,7 @@
             </div>
             <div class="project-footer-actions">
               <button class="project-modal-btn open-modal-trigger" data-project="rpa-expedicao">
-                <span>Ver Arquitetura & Código</span>
+                <span>Ver Arquitetura &amp; Código</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
               </button>
               <a href="https://github.com/ismaeoopi/rpa_Expedicao" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
@@ -425,59 +448,18 @@
           </div>
         </div>
 
-        <!-- Projeto Real 2: Cabotagem, Fretes & Playwright -->
-        <div class="project-card reveal" data-category="scraping">
-          <div class="project-banner">
-            <div class="project-banner-decor"></div>
-            <div class="project-category-badge">Playwright & Fretes</div>
-            <div class="project-banner-metrics" id="cabotagem-odometer-anchor">
-              <span class="banner-metric-item"><span class="metric-highlight">20</span> OF/dia útil</span>
-              <span class="banner-metric-item"><span id="card-cabot-hours">35h 50min</span> Economizadas</span>
-              <span class="banner-metric-item"><span id="card-cabot-ofs">1.720</span> OF's geradas</span>
-            </div>
-            <div class="project-banner-code">
-              &gt; sap_cabotagem_playwright.py<br>
-              &gt; Engine: Playwright Headless + SAP COM<br>
-              &gt; Rate: 15s per Freight Order (OF)
-            </div>
-          </div>
-          <div class="project-content">
-            <h3 class="project-title">Módulo Cabotagem, Ordem de Frete (OF) & Playwright Web</h3>
-            <p class="project-desc">
-              Robô híbrido que opera o portal web de cabotagem e transportadoras via Playwright, cruza tabelas tarifárias com o módulo corporativo de fretes e parametriza custos e CT-es diretamente nas transações de Ordem de Frete do SAP.
-            </p>
-
-            <div class="project-metrics-badge-wrap">
-              <span class="project-metric-pill">🌐 Web RPA com Playwright</span>
-              <span class="project-metric-pill">⏱️ &lt;15s por Ordem de Frete</span>
-              <span class="project-metric-pill">📑 Conciliação de CT-e</span>
-            </div>
-            <div class="project-tags">
-              <span class="project-tag">Playwright</span>
-              <span class="project-tag">SAP GUI</span>
-              <span class="project-tag">Pandas</span>
-              <span class="project-tag">pywin32</span>
-            </div>
-            <div class="project-footer-actions">
-              <button class="project-modal-btn open-modal-trigger" data-project="sap-cabotagem">
-                <span>Ver Arquitetura & Código</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
-              <a href="https://github.com/ismaeoopi/rpa_Expedicao" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                <span>Repositório</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Projeto Real 3: Estoque SAP & SharePoint -->
+        <!-- PROJETO 2 (TOP 2 GANHO): Estoque SAP & SharePoint (1 FTE Liberado) -->
         <div class="project-card reveal" data-category="desktop">
           <div class="project-banner">
             <div class="project-banner-decor"></div>
-            <div class="project-category-badge">Estoque & Packlists</div>
+            <div class="project-banner-top-left">
+              <div class="project-rank-tag rank-tag--silver">
+                <span>🥈 #2</span> Alto Impacto (1 FTE Liberado)
+              </div>
+              <div class="project-category-badge">Estoque &amp; Packlists</div>
+            </div>
             <div class="project-banner-metrics">
-              <span class="banner-metric-item"><span class="metric-highlight">4</span> usuários diretos</span>
+              <span class="banner-metric-item"><span class="metric-highlight">4</span> analistas diretos</span>
               <span class="banner-metric-item"><span id="card-est-hours">728</span> horas Economizadas</span>
               <span class="banner-metric-item"><span id="card-est-days">1 FTE liberado</span> (~91 dias)</span>
             </div>
@@ -488,7 +470,27 @@
             </div>
           </div>
           <div class="project-content">
-            <h3 class="project-title">Automação de Estoque SAP & Baixa de Packlists (MIGO / PRDI)</h3>
+            <h3 class="project-title">Automação de Estoque SAP &amp; Baixa de Packlists (MIGO / PRDI)</h3>
+
+            <!-- Grid de KPIs em Destaque (Visão Recrutador) -->
+            <div class="project-impact-kpis">
+              <div class="impact-kpi-box kpi-emerald">
+                <span class="impact-kpi-num" id="card-est-hours-grid">+728h</span>
+                <span class="impact-kpi-label">Horas Economizadas</span>
+                <span class="impact-kpi-sub" id="card-est-days-grid">~91 dias úteis poupados</span>
+              </div>
+              <div class="impact-kpi-box kpi-cyan">
+                <span class="impact-kpi-num">1 FTE</span>
+                <span class="impact-kpi-label">Capacidade Liberada</span>
+                <span class="impact-kpi-sub">8h/dia útil (4 analistas x 2h)</span>
+              </div>
+              <div class="impact-kpi-box kpi-purple">
+                <span class="impact-kpi-num">10+</span>
+                <span class="impact-kpi-label">Transações SAP</span>
+                <span class="impact-kpi-sub">MIGO, PRDI, ADGI em lote</span>
+              </div>
+            </div>
+
             <p class="project-desc">
               Engine de automação que sincroniza relatórios do Microsoft SharePoint, processa estruturas de bobinas e matérias-primas e executa em lote mais de 10 transações críticas do SAP (MIGO, PRDI, ADGI, BRID, CO01, CS15, MON, MSC, VL32).
             </p>
@@ -507,7 +509,7 @@
             </div>
             <div class="project-footer-actions">
               <button class="project-modal-btn open-modal-trigger" data-project="sap-estoque">
-                <span>Ver Arquitetura & Código</span>
+                <span>Ver Arquitetura &amp; Código</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
               </button>
               <a href="https://github.com/ismaeoopi/rpa_Expedicao" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
@@ -518,11 +520,160 @@
           </div>
         </div>
 
-        <!-- Projeto Real 4: JR Cruz Site -->
+        <!-- PROJETO 3 (TOP 3 GANHO): Cabotagem, Fretes & Playwright Web -->
+        <div class="project-card reveal" data-category="scraping">
+          <div class="project-banner">
+            <div class="project-banner-decor"></div>
+            <div class="project-banner-top-left">
+              <div class="project-rank-tag rank-tag--bronze">
+                <span>🥉 #3</span> Alta Velocidade &amp; Volume
+              </div>
+              <div class="project-category-badge">Playwright &amp; Fretes</div>
+            </div>
+            <div class="project-banner-metrics" id="cabotagem-odometer-anchor">
+              <span class="banner-metric-item"><span class="metric-highlight">20</span> OF/dia útil</span>
+              <span class="banner-metric-item"><span id="card-cabot-hours">35h 50min</span> Economizadas</span>
+              <span class="banner-metric-item"><span id="card-cabot-ofs">1.720</span> OF's geradas</span>
+            </div>
+            <div class="project-banner-code">
+              &gt; sap_cabotagem_playwright.py<br>
+              &gt; Engine: Playwright Headless + SAP COM<br>
+              &gt; Rate: 15s per Freight Order (OF)
+            </div>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">Módulo Cabotagem, Ordem de Frete (OF) &amp; Playwright Web</h3>
+
+            <!-- Grid de KPIs em Destaque (Visão Recrutador) -->
+            <div class="project-impact-kpis">
+              <div class="impact-kpi-box kpi-amber">
+                <span class="impact-kpi-num">83%</span>
+                <span class="impact-kpi-label">Ganho de Velocidade</span>
+                <span class="impact-kpi-sub">Redução de 90s para 15s/OF</span>
+              </div>
+              <div class="impact-kpi-box kpi-cyan">
+                <span class="impact-kpi-num" id="card-cabot-ofs-grid">+1.740</span>
+                <span class="impact-kpi-label">Ordens de Frete</span>
+                <span class="impact-kpi-sub">Integração Web + SAP GUI</span>
+              </div>
+              <div class="impact-kpi-box kpi-emerald">
+                <span class="impact-kpi-num" id="card-cabot-hours-grid">36h</span>
+                <span class="impact-kpi-label">Tempo Líquido Salvo</span>
+                <span class="impact-kpi-sub" id="card-cabot-desc-grid">20 OFs por dia útil</span>
+              </div>
+            </div>
+
+            <p class="project-desc">
+              Robô híbrido que opera o portal web de cabotagem e transportadoras via Playwright, cruza tabelas tarifárias com o módulo corporativo de fretes e parametriza custos e CT-es diretamente nas transações de Ordem de Frete do SAP.
+            </p>
+
+            <div class="project-metrics-badge-wrap">
+              <span class="project-metric-pill">🌐 Web RPA com Playwright</span>
+              <span class="project-metric-pill">⏱️ &lt;15s por Ordem de Frete</span>
+              <span class="project-metric-pill">📑 Conciliação de CT-e</span>
+            </div>
+            <div class="project-tags">
+              <span class="project-tag">Playwright</span>
+              <span class="project-tag">SAP GUI</span>
+              <span class="project-tag">Pandas</span>
+              <span class="project-tag">pywin32</span>
+            </div>
+            <div class="project-footer-actions">
+              <button class="project-modal-btn open-modal-trigger" data-project="sap-cabotagem">
+                <span>Ver Arquitetura &amp; Código</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+              <a href="https://github.com/ismaeoopi/rpa_Expedicao" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                <span>Repositório</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJETO 4: Purple System SaaS (Escala Empresarial) -->
+        <div class="project-card reveal" data-category="saas" style="border-color: rgba(168, 85, 247, 0.4); box-shadow: 0 0 25px rgba(168, 85, 247, 0.15);">
+          <div class="project-banner" style="background: linear-gradient(135deg, #1e1136 0%, #2e1065 100%);">
+            <div class="project-banner-decor" style="background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, transparent 70%);"></div>
+            <div class="project-banner-top-left">
+              <div class="project-rank-tag rank-tag--purple">
+                <span>💼 #4</span> Escala SaaS Empresarial
+              </div>
+              <div class="project-category-badge" style="color: #c084fc; border-color: rgba(168, 85, 247, 0.3); background: rgba(88, 28, 135, 0.4);">
+                ★ SaaS &amp; Plataforma Comercial
+              </div>
+            </div>
+            <div class="project-banner-metrics">
+              <span class="banner-metric-item"><span class="metric-purple">Multiempresa</span> Cloud</span>
+              <span class="banner-metric-item"><span class="metric-purple">PDV</span> Offline-First</span>
+              <span class="banner-metric-item">Estoque, BOM &amp; Finanças</span>
+            </div>
+            <div class="project-banner-code" style="color: rgba(216, 180, 254, 0.7);">
+              &gt; purplesystem.com.br<br>
+              &gt; Architecture: Multi-tenant Cloud + Offline-First POS<br>
+              &gt; Modules: Estoque, Ficha Técnica (BOM), Financeiro, Pedidos
+            </div>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">Purple System | Plataforma SaaS de Gestão Integrada</h3>
+
+            <!-- Grid de KPIs em Destaque (Visão Recrutador) -->
+            <div class="project-impact-kpis">
+              <div class="impact-kpi-box kpi-purple">
+                <span class="impact-kpi-num">100%</span>
+                <span class="impact-kpi-label">Uptime no PDV</span>
+                <span class="impact-kpi-sub">Vendas offline ininterruptas</span>
+              </div>
+              <div class="impact-kpi-box kpi-cyan">
+                <span class="impact-kpi-num">Multi</span>
+                <span class="impact-kpi-label">Tenancy Cloud</span>
+                <span class="impact-kpi-sub">Gestão central de filiais</span>
+              </div>
+              <div class="impact-kpi-box kpi-emerald">
+                <span class="impact-kpi-num">360°</span>
+                <span class="impact-kpi-label">Estoque &amp; BOM</span>
+                <span class="impact-kpi-sub">Controle de perdas &amp; CMV</span>
+              </div>
+            </div>
+
+            <p class="project-desc">
+              Sistema de gestão integrada (ERP/SaaS) comercial em produção. Reúne controle de estoque, ficha técnica de produção (BOM), orçamentos, pedidos, financeiro completo (fluxo de caixa e comissões) e PDV desktop offline com sincronização automática em nuvem.
+            </p>
+            <div class="project-metrics-badge-wrap">
+              <span class="project-metric-pill" style="color: #c084fc; border-color: rgba(168, 85, 247, 0.3); background: rgba(168, 85, 247, 0.1);">⚡ Multiempresa &amp; Multi-tenant</span>
+              <span class="project-metric-pill">📶 PDV Offline-First</span>
+              <span class="project-metric-pill">📊 Estoque &amp; Ficha Técnica (BOM)</span>
+            </div>
+            <div class="project-tags">
+              <span class="project-tag">SaaS Multiempresa</span>
+              <span class="project-tag">Cloud SQL</span>
+              <span class="project-tag">PDV Offline</span>
+              <span class="project-tag">Gestão Financeira</span>
+              <span class="project-tag">REST APIs</span>
+            </div>
+            <div class="project-footer-actions">
+              <button class="project-modal-btn open-modal-trigger" data-project="purple-system">
+                <span>Ver Arquitetura &amp; Detalhes</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+              <a href="https://purplesystem.com.br/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" style="background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%); color: #fff;">
+                <span>Acessar Plataforma</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJETO 5: JR Cruz Site (Alta Performance & CI/CD) -->
         <div class="project-card reveal" data-category="web">
           <div class="project-banner">
             <div class="project-banner-decor"></div>
-            <div class="project-category-badge">Frontend & Web</div>
+            <div class="project-banner-top-left">
+              <div class="project-rank-tag rank-tag--cyan">
+                <span>⚡ #5</span> Máxima Performance Web
+              </div>
+              <div class="project-category-badge">Frontend &amp; Web</div>
+            </div>
             <div class="project-banner-metrics">
               <span class="banner-metric-item"><span class="metric-highlight">Deploy CI/CD</span> GitHub Pages</span>
               <span class="banner-metric-item"><span class="metric-highlight">100%</span> Score Performance</span>
@@ -535,7 +686,27 @@
             </div>
           </div>
           <div class="project-content">
-            <h3 class="project-title">Plataforma Web Institucional JR Cruz (Frontend & CI/CD)</h3>
+            <h3 class="project-title">Plataforma Web Institucional JR Cruz (Frontend &amp; CI/CD)</h3>
+
+            <!-- Grid de KPIs em Destaque (Visão Recrutador) -->
+            <div class="project-impact-kpis">
+              <div class="impact-kpi-box kpi-emerald">
+                <span class="impact-kpi-num">100/100</span>
+                <span class="impact-kpi-label">Performance Score</span>
+                <span class="impact-kpi-sub">Auditoria Google Lighthouse</span>
+              </div>
+              <div class="impact-kpi-box kpi-cyan">
+                <span class="impact-kpi-num">&lt; 1s</span>
+                <span class="impact-kpi-label">Tempo de Carga</span>
+                <span class="impact-kpi-sub">Carregamento instantâneo</span>
+              </div>
+              <div class="impact-kpi-box kpi-purple">
+                <span class="impact-kpi-num">0 R$</span>
+                <span class="impact-kpi-label">Custo de Servidor</span>
+                <span class="impact-kpi-sub">Deploy CI/CD GitHub Pages</span>
+              </div>
+            </div>
+
             <p class="project-desc">
               Site institucional corporativo construído com HTML5 semântico, CSS3 responsivo e JavaScript limpo. Hospedado com deploy contínuo via GitHub Pages para máxima disponibilidade e velocidade de carregamento instantâneo.
             </p>
@@ -552,7 +723,7 @@
             </div>
             <div class="project-footer-actions">
               <button class="project-modal-btn open-modal-trigger" data-project="jrcruz-site">
-                <span>Ver Arquitetura & Código</span>
+                <span>Ver Arquitetura &amp; Código</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
               </button>
               <a href="https://ismaeoopi.github.io/jrcruz-site/" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
@@ -577,6 +748,22 @@
       </div>
 
       <div class="roi-box reveal">
+        <!-- Header da Calculadora de ROI -->
+        <div class="roi-header">
+          <div class="roi-header-info">
+            <span class="roi-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              Calculadora de ROI em RPA
+            </span>
+            <h3 class="roi-title">Calculadora de Economia Operacional: <span class="text-emerald">Quanto sua Empresa Economiza com RPA?</span></h3>
+            <p class="roi-subtitle">Descubra o retorno financeiro do seu robô, horas recuperadas e payback estimado em tempo real.</p>
+          </div>
+          <div class="roi-header-status">
+            <span class="pulse-dot"></span>
+            <span>Simulação em Tempo Real</span>
+          </div>
+        </div>
+
         <!-- Controles Deslizantes -->
         <div class="roi-inputs">
           <div class="roi-input-group">
