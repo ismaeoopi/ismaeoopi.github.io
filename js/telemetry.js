@@ -417,9 +417,9 @@
     }
 
     // Atualiza a soma total de tempo economizado
-    // Regra: OF = 75s economizados, Etiqueta = 20s, NF = 10 min (600s)
+    // Regra: OF = 75s economizados, Etiqueta = 8s, NF = 10 min (600s)
     function updateSavingsDisplay(shouldPulse = true) {
-      const totalSecs = (floatingState.labels * 20) + (floatingState.ofs * 75) + (floatingState.nfs * 600);
+      const totalSecs = (floatingState.labels * 8) + (floatingState.ofs * 75) + (floatingState.nfs * 600);
       floatingState.totalSecondsSaved = totalSecs;
       const formatted = formatTimeSaved(totalSecs);
 
