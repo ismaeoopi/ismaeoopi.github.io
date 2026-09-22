@@ -974,6 +974,57 @@
     </div>
   </div>
 
+  <!-- WIDGET FLUTUANTE DE TELEMETRIA EM TEMPO REAL -->
+  <aside id="live-telemetry-widget" class="telemetry-widget-container" style="bottom: 1.25rem; right: 1.25rem; position: fixed; z-index: 50;" aria-label="Telemetria em tempo real">
+    <!-- Mini-Badge / Pílula Sutil (Estado Recolhido) -->
+    <button id="telemetry-widget-badge" class="telemetry-widget-badge" aria-label="Abrir telemetria de automações em tempo real" title="Clique para abrir a telemetria ao vivo" style="display: none;">
+      <span class="telemetry-live-dot" aria-hidden="true"></span>
+      <span class="telemetry-badge-icon">⚡</span>
+      <span class="telemetry-badge-text">Telemetria Live</span>
+      <span id="telemetry-badge-time" class="telemetry-badge-time">0s</span>
+    </button>
+
+    <!-- Card Principal Glassmorphic (Estado Expandido) -->
+    <div id="telemetry-widget-card" class="telemetry-widget-card">
+      <div class="telemetry-widget-header">
+        <div class="telemetry-widget-title-group">
+          <span class="telemetry-live-dot" aria-hidden="true"></span>
+          <h4 class="telemetry-widget-title">Enquanto você navega:</h4>
+        </div>
+        <button id="telemetry-widget-close" class="telemetry-widget-close" aria-label="Recolher telemetria" title="Recolher">✕</button>
+      </div>
+
+      <ul class="telemetry-widget-list">
+        <li class="telemetry-widget-item">
+          <span class="telemetry-item-bullet">📄</span>
+          <span class="telemetry-item-content">
+            <span id="counter-nfs" class="telemetry-counter-value">0</span> <span id="label-nfs" class="telemetry-counter-label">NFs recebidas</span>
+          </span>
+        </li>
+        <li class="telemetry-widget-item">
+          <span class="telemetry-item-bullet">🚚</span>
+          <span class="telemetry-item-content">
+            <span id="counter-ofs" class="telemetry-counter-value">0</span> <span id="label-ofs" class="telemetry-counter-label">OFs geradas</span>
+          </span>
+        </li>
+        <li class="telemetry-widget-item">
+          <span class="telemetry-item-bullet">🏷️</span>
+          <span class="telemetry-item-content">
+            <span id="counter-labels" class="telemetry-counter-value">0</span> <span id="label-labels" class="telemetry-counter-label">etiquetas geradas</span>
+          </span>
+        </li>
+      </ul>
+
+      <div class="telemetry-widget-footer">
+        <div class="telemetry-widget-savings-label">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span>Tempo economizado:</span>
+        </div>
+        <span id="counter-time-saved" class="telemetry-savings-badge">0s</span>
+      </div>
+    </div>
+  </aside>
+
   <!-- TOAST NOTIFICATION -->
   <div class="toast-msg" id="toast-msg">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>

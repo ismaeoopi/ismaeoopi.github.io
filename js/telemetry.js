@@ -358,12 +358,178 @@
   }
 
   /**
+   * =========================================================================
+   * WIDGET FLUTUANTE DE TELEMETRIA EM TEMPO REAL ("Enquanto você navega:")
+   * =========================================================================
+   */
+  function initFloatingTelemetryWidget() {
+    const elWidget = document.getElementById('live-telemetry-widget');
+    if (!elWidget) return;
+
+    const elCard = document.getElementById('telemetry-widget-card');
+    const elBadge = document.getElementById('telemetry-widget-badge');
+    const elCloseBtn = document.getElementById('telemetry-widget-close');
+
+    const elCounterNfs = document.getElementById('counter-nfs');
+    const elLabelNfs = document.getElementById('label-nfs');
+    const elCounterOfs = document.getElementById('counter-ofs');
+    const elLabelOfs = document.getElementById('label-ofs');
+    const elCounterLabels = document.getElementById('counter-labels');
+    const elLabelLabels = document.getElementById('label-labels');
+    const elCounterTimeSaved = document.getElementById('counter-time-saved');
+    const elBadgeTime = document.getElementById('telemetry-badge-time');
+
+    const floatingState = {
+      nfs: 0,
+      ofs: 0,
+      labels: 0,
+      totalSecondsSaved: 0,
+      isOpen: true
+    };
+
+    // Formatação legível do tempo economizado
+    function formatTimeSaved(totalSeconds) {
+      if (totalSeconds < 60) {
+        return `${totalSeconds}s`;
+      }
+      const mins = Math.floor(totalSeconds / 60);
+      const secs = totalSeconds % 60;
+      if (mins < 60) {
+        return secs > 0 ? `${mins}min ${secs}s` : `${mins}min`;
+      }
+      const hours = Math.floor(mins / 60);
+      const remMins = mins % 60;
+      return remMins > 0 ? `${hours}h ${remMins}min` : `${hours}h`;
+    }
+
+    // Tratamento de pluralidade em português
+    function getPluralText(val, singular, plural) {
+      return val === 1 ? singular : plural;
+    }
+
+    // Dispara animação de pulso/flash sutil na tipografia
+    function triggerPulse(element, animationClass = 'counter-pulse-highlight') {
+      if (!element) return;
+      element.classList.remove(animationClass);
+      void element.offsetWidth; // Força reflow para reiniciar animação CSS
+      element.classList.add(animationClass);
+    }
+
+    // Atualiza a soma total de tempo economizado
+    // Regra: OF = 75s economizados, Etiqueta = 20s, NF = 10 min (600s)
+    function updateSavingsDisplay() {
+      const totalSecs = (floatingState.labels * 20) + (floatingState.ofs * 75) + (floatingState.nfs * 600);
+      floatingState.totalSecondsSaved = totalSecs;
+      const formatted = formatTimeSaved(totalSecs);
+
+      if (elCounterTimeSaved) {
+        elCounterTimeSaved.textContent = formatted;
+        triggerPulse(elCounterTimeSaved, 'savings-pulse-highlight');
+      }
+      if (elBadgeTime) {
+        elBadgeTime.textContent = formatted;
+      }
+    }
+
+    // Atualiza UI de Etiquetas
+    function updateLabelsDisplay(shouldPulse = false) {
+      if (elCounterLabels) {
+        elCounterLabels.textContent = floatingState.labels;
+        if (shouldPulse) triggerPulse(elCounterLabels);
+      }
+      if (elLabelLabels) {
+        elLabelLabels.textContent = getPluralText(floatingState.labels, 'etiqueta gerada', 'etiquetas geradas');
+      }
+      updateSavingsDisplay();
+    }
+
+    // Atualiza UI de Ordens de Frete (OF)
+    function updateOfsDisplay(shouldPulse = false) {
+      if (elCounterOfs) {
+        elCounterOfs.textContent = floatingState.ofs;
+        if (shouldPulse) triggerPulse(elCounterOfs);
+      }
+      if (elLabelOfs) {
+        elLabelOfs.textContent = getPluralText(floatingState.ofs, 'OF gerada', 'OFs geradas');
+      }
+      updateSavingsDisplay();
+    }
+
+    // Atualiza UI de Notas Fiscais (NF-e)
+    function updateNfsDisplay(shouldPulse = false) {
+      if (elCounterNfs) {
+        elCounterNfs.textContent = floatingState.nfs;
+        if (shouldPulse) triggerPulse(elCounterNfs);
+      }
+      if (elLabelNfs) {
+        elLabelNfs.textContent = getPluralText(floatingState.nfs, 'NF recebida', 'NFs recebidas');
+      }
+      updateSavingsDisplay();
+    }
+
+    // 1. Etiquetas: Incrementar +1 a cada 3 segundos (3000ms)
+    setInterval(() => {
+      if (state.isCycleRunning) {
+        floatingState.labels += 1;
+        updateLabelsDisplay(true);
+      }
+    }, 3000);
+
+    // 2. Ordens de Frete (OF): Incrementar +1 a cada 15 segundos (15000ms)
+    setInterval(() => {
+      if (state.isCycleRunning) {
+        floatingState.ofs += 1;
+        updateOfsDisplay(true);
+      }
+    }, 15000);
+
+    // 3. Notas Fiscais (NF-e): Incrementar +1 a cada 2 minutos (120000ms)
+    setInterval(() => {
+      if (state.isCycleRunning) {
+        floatingState.nfs += 1;
+        updateNfsDisplay(true);
+      }
+    }, 120000);
+
+    // Fechar card -> Recolher em mini-badge/pílula sutil
+    if (elCloseBtn && elCard && elBadge) {
+      elCloseBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        elCard.style.display = 'none';
+        elBadge.style.display = 'inline-flex';
+        floatingState.isOpen = false;
+      });
+    }
+
+    // Clicar no mini-badge -> Reabrir card
+    if (elBadge && elCard) {
+      elBadge.addEventListener('click', () => {
+        elBadge.style.display = 'none';
+        elCard.style.display = 'block';
+        floatingState.isOpen = true;
+      });
+    }
+
+    // Render inicial dos contadores e textos com singular/plural
+    updateLabelsDisplay(false);
+    updateOfsDisplay(false);
+    updateNfsDisplay(false);
+
+    // Expõe hook para simulação externa (ex: botão de simulação manual de OF)
+    window.incrementFloatingOf = () => {
+      floatingState.ofs += 1;
+      updateOfsDisplay(true);
+    };
+  }
+
+  /**
    * Inicialização e Event Listeners
    */
   document.addEventListener('DOMContentLoaded', () => {
     // Render inicial
     renderDOM();
     startLiveCycle();
+    initFloatingTelemetryWidget();
 
     // Botão de Simulação Manual no Card de Cabotagem
     const manualBtn = document.getElementById('btn-simulate-of');
@@ -371,6 +537,9 @@
       manualBtn.addEventListener('click', (e) => {
         e.preventDefault();
         triggerOfCycle(true);
+        if (typeof window.incrementFloatingOf === 'function') {
+          window.incrementFloatingOf();
+        }
         // Pequena animação no botão
         manualBtn.classList.add('btn-clicked');
         setTimeout(() => manualBtn.classList.remove('btn-clicked'), 300);
