@@ -12,3 +12,6 @@ desktop.ini
 # Logs & Temporários
 *.log
 scratch/
+
+# Mídias e capas locais
+assets/covers/

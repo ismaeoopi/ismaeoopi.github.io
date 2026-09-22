@@ -117,6 +117,13 @@ export async function syncOfflineSales(tenantId, offlineQueue) {
       badge: 'SAP ERP & Logística',
       repoUrl: 'https://github.com/ismaeoopi/rpa_Expedicao',
       summary: 'Solução corporativa completa em Python que automatiza separação de cargas, seleção de Unidades de Carga (UC), picking e integração direta com SAP GUI.',
+      telemetry: {
+        startDate: '19/05/2026',
+        formula: '2 horas/dia por usuário direto em 3 usuários = 6 horas economizadas por dia útil',
+        dailySavings: '6h / dia útil (30h / semana)',
+        benchmark: '~546 horas acumuladas (~68 dias úteis de trabalho manual poupados)',
+        impactDesc: 'Eliminação da conferência manual de remessas, seleção automatizada de UCs e etiquetas FIP sem erros de digitação no SAP.'
+      },
       problem: 'O time de expedição e logística enfrentava alto volume manual diário para conferir remessas de transferência, selecionar UCs e emitir ordens de frete no SAP, gerando gargalos de faturamento e risco de inconsistências de lote.',
       solution: 'Desenvolvimento de uma aplicação robusta em Python empacotada em executável (.exe) autônomo com interface local em Flask (Dark Mode). Integração com SAP GUI via pywin32, sincronização de relatórios operacionais com Microsoft SharePoint e módulo de Auto-Update silencioso via Git.',
       impact: 'Eliminação completa de falhas de digitação em remessas, conferência de tolerâncias milimétricas automatizada e redução drástica no tempo de liberação de transporte.',
@@ -158,6 +165,13 @@ def fechar_popups(session, keywords):
       badge: 'Playwright & Web Scraping',
       repoUrl: 'https://github.com/ismaeoopi/rpa_Expedicao',
       summary: 'Automação híbrida combinando Playwright para portais web de transporte e SAP GUI Scripting para apuração de fretes.',
+      telemetry: {
+        startDate: '25/05/2026',
+        formula: '90s manual vs. 15s automação = Economia de 75 segundos por Ordem de Frete (OF)',
+        dailySavings: '20 OFs/dia útil (~25 minutos líquidos por dia útil)',
+        benchmark: '+1.720 OFs processadas (+35h 50min de digitação manual extenuante eliminadas)',
+        impactDesc: 'Automação híbrida com Playwright extraindo custos de portais web de cabotagem e parametrizando ordens no SAP GUI com odômetro ativo.'
+      },
       problem: 'A apuração de custos de Ordens de Frete (OF) para cabotagem exigia acessar múltiplos portais web de transportadoras, extrair tabelas de custos e cadastrar manualmente os valores no SAP.',
       solution: 'Robô com Playwright para automação de navegação e extração headless, cruzando tabelas de tarifas com planilhas corporativas via Pandas e inserindo os valores apurados na transação de fretes do SAP.',
       impact: 'Tempo de lançamento por Ordem de Frete reduzido para menos de 15 segundos, com 100% de assertividade e sem divergência fiscal em CT-es.',
@@ -187,6 +201,13 @@ async def processar_portal_cabotagem(of_numero: str, session_sap):
       badge: 'SAP GUI & Dados',
       repoUrl: 'https://github.com/ismaeoopi/rpa_Expedicao',
       summary: 'Módulo que executa transações de inventário em lote no SAP (MIGO, PRDI, ADGI, BRID, CO01, CS15, MON, MSC, VL32) e concilia planilhas.',
+      telemetry: {
+        startDate: '19/05/2026',
+        formula: '2 horas/dia por usuário direto em 4 usuários = 8 horas economizadas por dia útil',
+        dailySavings: '8h / dia útil (40h / semana)',
+        benchmark: '~728 horas acumuladas (~91 dias úteis = 1 FTE totalmente liberado)',
+        impactDesc: 'Execução de mais de 10 transações críticas do SAP (MIGO, PRDI, ADGI, BRID, CO01, CS15, MON, MSC, VL32) com histórico local em SQLite.'
+      },
       problem: 'Conferência física de packlists de bobinas e matérias-primas demandava entrada manual repetitiva em mais de 10 transações distintas do SAP, consumindo horas diárias dos analistas.',
       solution: 'Automação integrada que baixa planilhas do Microsoft SharePoint, extrai Unidades de Carga com Pandas, gera etiquetas de identificação (FIP) e realiza baixas e lançamentos automáticos no SAP.',
       impact: 'Mais de 10 transações críticas do SAP automatizadas, com armazenamento do histórico no SQLite local e auditoria completa.',
@@ -250,6 +271,8 @@ def processar_packlist_e_migo(planilha_path: str):
   const modalTechs = document.getElementById('modal-techs');
   const modalCode = document.getElementById('modal-code');
   const modalRepoLink = document.getElementById('modal-repo-link');
+  const modalTelemetryContainer = document.getElementById('modal-telemetry-container');
+  const modalTelemetryContent = document.getElementById('modal-telemetry-content');
 
   function openModal(projectId) {
     const data = projectsData[projectId];
@@ -263,6 +286,39 @@ def processar_packlist_e_migo(planilha_path: str):
     modalCode.textContent = data.codeSnippet;
 
     modalTechs.innerHTML = data.techs.map(t => `<span class="tech-badge">${t}</span>`).join('');
+
+    // Painel de Telemetria no Modal
+    if (modalTelemetryContainer && modalTelemetryContent) {
+      if (data.telemetry) {
+        modalTelemetryContainer.style.display = 'block';
+        modalTelemetryContent.innerHTML = `
+          <h5>
+            <span class="pulse-dot"></span>
+            <span>Métricas de Telemetria em Produção (Início: ${data.telemetry.startDate})</span>
+          </h5>
+          <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 8px;">
+            ${data.telemetry.impactDesc}
+          </p>
+          <div class="modal-telemetry-grid">
+            <div class="modal-telemetry-item">
+              <span>REGRA DE CÁLCULO</span>
+              <strong style="color: var(--accent-cyan); font-size: 0.82rem;">${data.telemetry.formula}</strong>
+            </div>
+            <div class="modal-telemetry-item">
+              <span>ECONOMIA POR DIA ÚTIL</span>
+              <strong>${data.telemetry.dailySavings}</strong>
+            </div>
+            <div class="modal-telemetry-item" style="grid-column: 1 / -1;">
+              <span>BENCHMARK ACUMULADO EM DIAS ÚTEIS</span>
+              <strong>${data.telemetry.benchmark}</strong>
+            </div>
+          </div>
+        `;
+      } else {
+        modalTelemetryContainer.style.display = 'none';
+        modalTelemetryContent.innerHTML = '';
+      }
+    }
 
     if (modalRepoLink) {
       modalRepoLink.href = data.repoUrl;

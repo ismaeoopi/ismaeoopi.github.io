@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador & Personalizador de Capa LinkedIn | Ismael Nascimento</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080b11;
+      --card-bg: rgba(14, 20, 36, 0.75);
+      --card-border: rgba(0, 242, 254, 0.2);
+      --accent: #00f2fe;
+      --accent-blue: #4facfe;
+      --accent-emerald: #10b981;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      padding: 30px 20px 60px;
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(0, 242, 254, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 60%, rgba(79, 172, 254, 0.06) 0%, transparent 45%);
+    }
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 242, 254, 0.1);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    h1 span {
+      background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* MOCKUP CONTAINER */
+    .mockup-card {
+      background: #1b1f23;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      margin-bottom: 35px;
+      position: relative;
+    }
+    .mockup-header {
+      background: #161b22;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .mockup-title {
+      font-size: 0.85rem;
+      color: #8b949e;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .traffic-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot.r { background: #ff5f56; }
+    .dot.y { background: #ffbd2e; }
+    .dot.g { background: #27c93f; }
+
+    /* BANNER WRAPPER */
+    .banner-preview-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1584 / 396;
+      background: #080b11;
+      overflow: hidden;
+    }
+    #bannerCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* SAFE ZONE OVERLAY */
+    .safe-zone-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      display: none;
+    }
+    .safe-zone-overlay.active {
+      display: block;
+    }
+    .safe-zone-desktop {
+      position: absolute;
+      left: 3%;
+      bottom: -40%;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 2px dashed #f43f5e;
+      background: rgba(244, 63, 94, 0.2);
+    }
+    .safe-zone-label {
+      position: absolute;
+      left: 3%;
+      bottom: 25%;
+      background: rgba(244, 63, 94, 0.9);
+      color: white;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    /* SIMULATED LINKEDIN PROFILE BAR */
+    .profile-info-sim {
+      padding: 20px 30px 25px;
+      position: relative;
+      background: #1b1f23;
+    }
+    .avatar-sim {
+      position: absolute;
+      top: -75px;
+      left: 35px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 4px solid #1b1f23;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .avatar-sim img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .avatar-sim svg {
+      color: #64748b;
+    }
+    .profile-details-row {
+      margin-left: 165px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .p-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .p-head {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      margin: 3px 0 6px;
+    }
+    .p-sub {
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+
+    /* CONTROLS SECTION */
+    .controls-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 900px) {
+      .controls-grid { grid-template-columns: 1fr; }
+      .profile-details-row { margin-left: 0; margin-top: 60px; }
+      .avatar-sim { top: -60px; width: 110px; height: 110px; }
+    }
+    .panel-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 24px;
+      backdrop-filter: blur(12px);
+    }
+    .panel-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--accent);
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-control {
+      width: 100%;
+      background: rgba(8, 11, 17, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 0.9rem;
+      font-family: inherit;
+      transition: 0.2s border;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* TEMPLATE PICKER */
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .template-item {
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 10px;
+      background: rgba(10, 15, 25, 0.6);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .template-item.active {
+      border-color: var(--accent);
+      background: rgba(0, 242, 254, 0.1);
+    }
+    .template-thumb {
+      width: 100%;
+      aspect-ratio: 4/1;
+      border-radius: 6px;
+      object-fit: cover;
+      margin-bottom: 8px;
+      background: #000;
+    }
+    .template-name {
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    /* ACTION BUTTONS */
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+      color: #080b11;
+      box-shadow: 0 4px 20px rgba(0, 242, 254, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(0, 242, 254, 0.5);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* READY DOWNLOADS GALLERY */
+    .gallery-section {
+      margin-top: 50px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 40px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 25px;
+      margin-top: 25px;
+    }
+    .gallery-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding: 18px;
+    }
+    .gallery-img-preview {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      aspect-ratio: 1584 / 396;
+      object-fit: cover;
+    }
+    .gallery-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="badge">
+        <span>⚡ ESPECIALISTA LINKEDIN</span>
+      </div>
+      <h1>Capa Profissional <span>Personalizada</span></h1>
+      <p class="subtitle">Personalize em tempo real, teste o posicionamento da sua foto de perfil e faça download do banner em alta resolução (1584 x 396 px) pronto para o LinkedIn.</p>
+    </header>
+
+    <!-- MOCKUP DO LINKEDIN -->
+    <div class="mockup-card">
+      <div class="mockup-header">
+        <div class="traffic-dots">
+          <div class="dot r"></div>
+          <div class="dot y"></div>
+          <div class="dot g"></div>
+        </div>
+        <div class="mockup-title">
+          <span>linkedin.com/in/ismael-batista-nascimento</span>
+        </div>
+        <div>
+          <button class="btn btn-secondary" id="btnToggleSafeZone" style="padding: 6px 12px; font-size: 0.78rem;">
+            🎯 Mostrar Safe Zone (Foto)
+          </button>
+        </div>
+      </div>
+
+      <!-- BANNER CANVAS -->
+      <div class="banner-preview-wrapper">
+        <canvas id="bannerCanvas" width="1584" height="396"></canvas>
+
+        <!-- SAFE ZONE -->
+        <div class="safe-zone-overlay" id="safeZoneOverlay">
+          <div class="safe-zone-desktop"></div>
+          <div class="safe-zone-label">Área da Foto de Perfil</div>
+        </div>
+      </div>
+
+      <!-- SIMULATED LINKEDIN PROFILE FOOTER -->
+      <div class="profile-info-sim">
+        <div class="avatar-sim" title="Foto do Perfil">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <div class="profile-details-row">
+          <div>
+            <div class="p-name" id="simName">Ismael Nascimento</div>
+            <div class="p-head" id="simHead">Desenvolvedor RPA & Automação Python | SAP ERP</div>
+            <div class="p-sub">São Paulo, Brasil • <span style="color: var(--accent);">ismaeoopi.github.io</span></div>
+          </div>
+          <div>
+            <button class="btn btn-primary" id="btnDownloadCurrent">
+              📥 Baixar Este Banner (1584x396 PNG)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls-grid">
+      <!-- Painel 1: Templates e Estilo -->
+      <div class="panel-card">
+        <h3>🎨 Escolha o Modelo de Fundo</h3>
+        <div class="template-grid">
+          <div class="template-item active" data-bg="assets/covers/raw_background_sap_python_1584x396.jpg">
+            <img class="template-thumb" src="assets/covers/raw_background_sap_python_1584x396.jpg" alt="SAP Python">
+            <div class="template-name">SAP & Python 3D</div>
+          </div>
+          <div class="template-item" data-bg="assets/covers/raw_background_executive_1584x396.jpg">
+            <img class="template-thumb" src="assets/covers/raw_background_executive_1584x396.jpg" alt="Executivo">
+            <div class="template-name">Dark Circuits</div>
+          </div>
+          <div class="template-item" data-bg="assets/covers/03_linkedin_banner_automation_hud.png">
+            <img class="template-thumb" src="assets/covers/03_linkedin_banner_automation_hud.png" alt="HUD">
+            <div class="template-name">Automation HUD</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Cor de Destaque / Neon</label>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="btn btn-secondary color-btn active" data-color="#00f2fe" style="border-color: #00f2fe; color: #00f2fe;">Cyan Tech</button>
+            <button class="btn btn-secondary color-btn" data-color="#10b981" style="border-color: #10b981; color: #10b981;">Emerald</button>
+            <button class="btn btn-secondary color-btn" data-color="#8b5cf6" style="border-color: #8b5cf6; color: #8b5cf6;">Purple</button>
+            <button class="btn btn-secondary color-btn" data-color="#38bdf8" style="border-color: #38bdf8; color: #38bdf8;">Sky Blue</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Painel 2: Textos Personalizados -->
+      <div class="panel-card">
+        <h3>✍️ Textos do Banner</h3>
+        <div class="form-group">
+          <label>Badge Superior (Prompt / Tag)</label>
+          <input type="text" class="form-control" id="inputBadge" value=">_  AUTOMAÇÃO DE PROCESSOS & ENGENHARIA DE DADOS">
+        </div>
+        <div class="form-group">
+          <label>Nome Principal</label>
+          <input type="text" class="form-control" id="inputName" value="ISMAEL NASCIMENTO">
+        </div>
+        <div class="form-group">
+          <label>Especialidade / Cargo</label>
+          <input type="text" class="form-control" id="inputRole" value="Desenvolvedor RPA & Automação Python | Especialista SAP ERP">
+        </div>
+        <div class="form-group">
+          <label>Proposta de Valor / Destaques</label>
+          <input type="text" class="form-control" id="inputProps" value="Robôs Autônomos  •  Playwright  •  pywin32  •  Pandas  •  Microsserviços">
+        </div>
+        <div class="form-group">
+          <label>Stack Tecnológica (Separadas por vírgula)</label>
+          <input type="text" class="form-control" id="inputPills" value="SAP ERP / GUI, Python 3.x, Playwright, Pandas ETL, pywin32, Flask APIs">
+        </div>
+        <div class="form-group">
+          <label>Rodapé (Links / Contato)</label>
+          <input type="text" class="form-control" id="inputFooter" value="GitHub: ismaeoopi    |    Portfólio: ismaeoopi.github.io">
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO DE DOWNLOADS IMEDIATOS PRE-RENDERIZADOS -->
+    <div class="gallery-section">
+      <h2 style="font-family: 'Outfit'; font-size: 1.8rem; margin-bottom: 8px;">
+        📦 Banners Prontos em Alta Resolução (1584 x 396)
+      </h2>
+      <p style="color: var(--text-muted); margin-bottom: 25px;">
+        Se você preferir, baixe diretamente as 3 edições oficiais prontas geradas para seu perfil:
+      </p>
+
+      <div class="gallery-grid">
+        <!-- Card 1 -->
+        <div class="gallery-card">
+          <img class="gallery-img-preview" src="assets/covers/01_linkedin_banner_sap_python.png" alt="Capa SAP Python">
+          <div class="gallery-info">
+            <div>
+              <strong style="font-size: 1.1rem; color: #fff;">Opção 1: SAP & Python 3D Neural Architecture (Recomendada)</strong>
+              <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                Cubo SAP 3D com circuitos de fibra óptica, tipografia dual-tone e pills completas.
+              </div>
+            </div>
+            <a href="assets/covers/01_linkedin_banner_sap_python.png" download="capa_linkedin_ismael_sap_python.png" class="btn btn-primary">
+              📥 Baixar Opção 1 (PNG)
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="gallery-card">
+          <img class="gallery-img-preview" src="assets/covers/02_linkedin_banner_executive_dark.png" alt="Capa Executiva Dark">
+          <div class="gallery-info">
+            <div>
+              <strong style="font-size: 1.1rem; color: #fff;">Opção 2: Executive Dark Obsidian & Circuits</strong>
+              <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                Estilo sóbrio e corporativo com polígonos escuros e conexões neurais em ciano.
+              </div>
+            </div>
+            <a href="assets/covers/02_linkedin_banner_executive_dark.png" download="capa_linkedin_ismael_executive.png" class="btn btn-primary">
+              📥 Baixar Opção 2 (PNG)
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="gallery-card">
+          <img class="gallery-img-preview" src="assets/covers/03_linkedin_banner_automation_hud.png" alt="Capa Automation HUD">
+          <div class="gallery-info">
+            <div>
+              <strong style="font-size: 1.1rem; color: #fff;">Opção 3: Automation HUD & Workflow Systems</strong>
+              <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                Interface futurista com diagramas de fluxo, trechos de código e microsserviços.
+              </div>
+            </div>
+            <a href="assets/covers/03_linkedin_banner_automation_hud.png" download="capa_linkedin_ismael_hud.png" class="btn btn-primary">
+              📥 Baixar Opção 3 (PNG)
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const canvas = document.getElementById('bannerCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    let currentBgSrc = 'assets/covers/raw_background_sap_python_1584x396.jpg';
+    let currentAccent = '#00f2fe';
+    let currentBgImg = new Image();
+
+    function renderCanvas() {
+      // Draw background
+      if (currentBgImg.complete && currentBgImg.naturalWidth > 0) {
+        ctx.drawImage(currentBgImg, 0, 0, canvas.width, canvas.height);
+      } else {
+        ctx.fillStyle = '#080b11';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+
+      // Soft vignette for contrast
+      const grad = ctx.createLinearGradient(0, 0, 900, 0);
+      grad.addColorStop(0, 'rgba(8, 11, 17, 0.92)');
+      grad.addColorStop(0.7, 'rgba(8, 11, 17, 0.6)');
+      grad.addColorStop(1, 'rgba(8, 11, 17, 0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 900, canvas.height);
+
+      const startX = 340;
+      let currY = 62;
+
+      // 1. Terminal Badge
+      const badgeText = document.getElementById('inputBadge').value;
+      if (badgeText) {
+        ctx.font = 'bold 15px "Segoe UI", sans-serif';
+        const tw = ctx.measureText(badgeText).width;
+        const bw = tw + 24;
+        const bh = 28;
+
+        ctx.fillStyle = 'rgba(10, 25, 45, 0.85)';
+        ctx.strokeStyle = currentAccent;
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.roundRect(startX, currY - 18, bw, bh, 6);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = currentAccent;
+        ctx.fillText(badgeText, startX + 12, currY);
+        currY += bh + 24;
+      }
+
+      // 2. Name
+      const nameText = document.getElementById('inputName').value;
+      if (nameText) {
+        ctx.font = 'bold 50px "Segoe UI", sans-serif';
+        const parts = nameText.split(' ');
+        const first = parts[0] + ' ';
+        const last = parts.slice(1).join(' ');
+
+        // First name (white)
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(first, startX, currY);
+        const fw = ctx.measureText(first).width;
+
+        // Last name (accent)
+        ctx.fillStyle = currentAccent;
+        ctx.fillText(last, startX + fw, currY);
+
+        currY += 52;
+      }
+
+      // 3. Subtitle / Role
+      const roleText = document.getElementById('inputRole').value;
+      if (roleText) {
+        ctx.font = 'bold 22px "Segoe UI", sans-serif';
+        ctx.fillStyle = '#e2e8f0';
+        ctx.fillText(roleText, startX, currY);
+        currY += 32;
+      }
+
+      // 4. Value prop
+      const propText = document.getElementById('inputProps').value;
+      if (propText) {
+        ctx.font = '18px "Segoe UI", sans-serif';
+        ctx.fillStyle = '#38bdf8';
+        ctx.fillText(propText, startX, currY);
+        currY += 38;
+      }
+
+      // 5. Pills
+      const pillsRaw = document.getElementById('inputPills').value;
+      if (pillsRaw) {
+        const pills = pillsRaw.split(',').map(s => s.trim()).filter(Boolean);
+        let px = startX;
+        ctx.font = 'bold 14px "Segoe UI", sans-serif';
+
+        pills.forEach(pill => {
+          const tw = ctx.measureText(pill).width;
+          const pw = tw + 24;
+          const ph = 26;
+
+          ctx.fillStyle = 'rgba(12, 22, 38, 0.88)';
+          ctx.strokeStyle = currentAccent + '77';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.roundRect(px, currY, pw, ph, 13);
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.fillStyle = '#f1f5f9';
+          ctx.fillText(pill, px + 12, currY + 18);
+          px += pw + 10;
+        });
+        currY += 40;
+      }
+
+      // 6. Footer
+      const footerText = document.getElementById('inputFooter').value;
+      if (footerText) {
+        ctx.font = '15px "JetBrains Mono", Consolas, monospace';
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillText(footerText, startX, currY + 10);
+      }
+    }
+
+    function loadBg(src) {
+      currentBgImg.onload = () => renderCanvas();
+      currentBgImg.src = src;
+    }
+
+    // Init
+    loadBg(currentBgSrc);
+
+    // Inputs listener
+    document.querySelectorAll('.form-control').forEach(inp => {
+      inp.addEventListener('input', () => {
+        renderCanvas();
+        if (inp.id === 'inputName') document.getElementById('simName').textContent = inp.value;
+        if (inp.id === 'inputRole') document.getElementById('simHead').textContent = inp.value;
+      });
+    });
+
+    // Template selection
+    document.querySelectorAll('.template-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.template-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        currentBgSrc = item.dataset.bg;
+        loadBg(currentBgSrc);
+      });
+    });
+
+    // Accent buttons
+    document.querySelectorAll('.color-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentAccent = btn.dataset.color;
+        renderCanvas();
+      });
+    });
+
+    // Safe zone toggle
+    const safeZone = document.getElementById('safeZoneOverlay');
+    document.getElementById('btnToggleSafeZone').addEventListener('click', () => {
+      safeZone.classList.toggle('active');
+    });
+
+    // Download canvas
+    document.getElementById('btnDownloadCurrent').addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.download = 'capa_linkedin_personalizada_ismael.png';
+      link.href = canvas.toDataURL('image/png', 1.0);
+      link.click();
+    });
+  </script>
+</body>
+</html>
