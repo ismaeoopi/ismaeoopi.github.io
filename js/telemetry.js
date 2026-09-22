@@ -379,10 +379,11 @@
     const elCounterTimeSaved = document.getElementById('counter-time-saved');
     const elBadgeTime = document.getElementById('telemetry-badge-time');
 
+    // Estado dos contadores — começa em 1 conforme requisito
     const floatingState = {
-      nfs: 0,
-      ofs: 0,
-      labels: 0,
+      nfs: 1,
+      ofs: 1,
+      labels: 1,
       totalSecondsSaved: 0,
       isOpen: true
     };
@@ -417,14 +418,14 @@
 
     // Atualiza a soma total de tempo economizado
     // Regra: OF = 75s economizados, Etiqueta = 20s, NF = 10 min (600s)
-    function updateSavingsDisplay() {
+    function updateSavingsDisplay(shouldPulse = true) {
       const totalSecs = (floatingState.labels * 20) + (floatingState.ofs * 75) + (floatingState.nfs * 600);
       floatingState.totalSecondsSaved = totalSecs;
       const formatted = formatTimeSaved(totalSecs);
 
       if (elCounterTimeSaved) {
         elCounterTimeSaved.textContent = formatted;
-        triggerPulse(elCounterTimeSaved, 'savings-pulse-highlight');
+        if (shouldPulse) triggerPulse(elCounterTimeSaved, 'savings-pulse-highlight');
       }
       if (elBadgeTime) {
         elBadgeTime.textContent = formatted;
@@ -440,7 +441,7 @@
       if (elLabelLabels) {
         elLabelLabels.textContent = getPluralText(floatingState.labels, 'etiqueta gerada', 'etiquetas geradas');
       }
-      updateSavingsDisplay();
+      updateSavingsDisplay(shouldPulse);
     }
 
     // Atualiza UI de Ordens de Frete (OF)
@@ -452,7 +453,7 @@
       if (elLabelOfs) {
         elLabelOfs.textContent = getPluralText(floatingState.ofs, 'OF gerada', 'OFs geradas');
       }
-      updateSavingsDisplay();
+      updateSavingsDisplay(shouldPulse);
     }
 
     // Atualiza UI de Notas Fiscais (NF-e)
@@ -464,8 +465,13 @@
       if (elLabelNfs) {
         elLabelNfs.textContent = getPluralText(floatingState.nfs, 'NF recebida', 'NFs recebidas');
       }
-      updateSavingsDisplay();
+      updateSavingsDisplay(shouldPulse);
     }
+
+    // Render inicial — contadores já começam em 1, com singular correto e tempo economizado
+    updateLabelsDisplay(false);
+    updateOfsDisplay(false);
+    updateNfsDisplay(false);
 
     // 1. Etiquetas: Incrementar +1 a cada 3 segundos (3000ms)
     setInterval(() => {
@@ -491,29 +497,51 @@
       }
     }, 120000);
 
-    // Fechar card -> Recolher em mini-badge/pílula sutil
+    // Fechar card -> Recolher em mini-badge/pílula sutil com transição suave
     if (elCloseBtn && elCard && elBadge) {
       elCloseBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        elCard.style.display = 'none';
-        elBadge.style.display = 'inline-flex';
+        // Transição suave de saída: fade-out + slide-down
+        elCard.style.opacity = '0';
+        elCard.style.transform = 'translateY(12px) scale(0.96)';
+        elCard.style.pointerEvents = 'none';
+        setTimeout(() => {
+          elCard.style.display = 'none';
+          // Mostra a pílula com animação de entrada
+          elBadge.style.display = 'inline-flex';
+          elBadge.style.opacity = '0';
+          elBadge.style.transform = 'translateY(8px)';
+          // Força reflow para a transição funcionar
+          void elBadge.offsetWidth;
+          elBadge.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+          elBadge.style.opacity = '1';
+          elBadge.style.transform = 'translateY(0)';
+        }, 280);
         floatingState.isOpen = false;
       });
     }
 
-    // Clicar no mini-badge -> Reabrir card
+    // Clicar no mini-badge -> Reabrir card com transição suave
     if (elBadge && elCard) {
       elBadge.addEventListener('click', () => {
-        elBadge.style.display = 'none';
-        elCard.style.display = 'block';
+        // Fade out da pílula
+        elBadge.style.opacity = '0';
+        elBadge.style.transform = 'translateY(8px)';
+        setTimeout(() => {
+          elBadge.style.display = 'none';
+          // Mostra o card com animação de entrada
+          elCard.style.display = 'block';
+          elCard.style.opacity = '0';
+          elCard.style.transform = 'translateY(16px) scale(0.96)';
+          elCard.style.pointerEvents = 'auto';
+          // Força reflow
+          void elCard.offsetWidth;
+          elCard.style.opacity = '1';
+          elCard.style.transform = 'translateY(0) scale(1)';
+        }, 220);
         floatingState.isOpen = true;
       });
     }
-
-    // Render inicial dos contadores e textos com singular/plural
-    updateLabelsDisplay(false);
-    updateOfsDisplay(false);
-    updateNfsDisplay(false);
 
     // Expõe hook para simulação externa (ex: botão de simulação manual de OF)
     window.incrementFloatingOf = () => {
