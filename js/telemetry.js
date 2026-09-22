@@ -243,7 +243,7 @@
     const elCabotHours = document.getElementById('card-cabot-hours');
     const elCabotSavedDesc = document.getElementById('card-cabot-desc');
 
-    if (elCabotOfs) elCabotOfs.textContent = `${formatNumber(metrics.cabotagem.totalOfs)} OFs`;
+    if (elCabotOfs) elCabotOfs.textContent = formatNumber(metrics.cabotagem.totalOfs);
     if (elCabotHours) elCabotHours.textContent = formatDuration(metrics.cabotagem.totalSeconds);
     if (elCabotSavedDesc) {
       elCabotSavedDesc.textContent = `${formatNumber(metrics.cabotagem.bDays)} dias úteis em produção (~${metrics.cabotagem.bDays * 20} OFs base)`;
@@ -255,16 +255,16 @@
     const elExpNfs = document.getElementById('card-exp-nfs');
     const elExpLabels = document.getElementById('card-exp-labels');
 
-    if (elExpHours) elExpHours.textContent = `${formatNumber(metrics.expedicao.totalHours)} horas`;
+    if (elExpHours) elExpHours.textContent = formatNumber(metrics.expedicao.totalHours);
     if (elExpDays) elExpDays.textContent = `~${formatNumber(metrics.expedicao.daysSaved)} dias úteis economizados`;
-    if (elExpNfs) elExpNfs.textContent = `${formatNumber(metrics.expedicao.totalNfs)} NF-e`;
+    if (elExpNfs) elExpNfs.textContent = formatNumber(metrics.expedicao.totalNfs);
     if (elExpLabels) elExpLabels.textContent = `${formatNumber(metrics.expedicao.totalLabels)} etiquetas`;
 
     // 5. Card Estoque
     const elEstHours = document.getElementById('card-est-hours');
     const elEstDays = document.getElementById('card-est-days');
-    if (elEstHours) elEstHours.textContent = `${formatNumber(metrics.estoque.totalHours)} horas`;
-    if (elEstDays) elEstDays.textContent = `~${formatNumber(metrics.estoque.daysSaved)} dias úteis (1 FTE liberado)`;
+    if (elEstHours) elEstHours.textContent = formatNumber(metrics.estoque.totalHours);
+    if (elEstDays) elEstDays.textContent = `~${formatNumber(metrics.estoque.daysSaved)} dias úteis`;
 
     // Feedback visual quando acionado
     if (triggerAnimation) {

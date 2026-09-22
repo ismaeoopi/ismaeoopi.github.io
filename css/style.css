@@ -1104,6 +1104,48 @@ body::before {
   font-size: 0.78rem;
   color: rgba(255, 255, 255, 0.4);
   line-height: 1.4;
+  position: relative;
+  z-index: 1;
+}
+
+/* Métricas compactas no topo do Banner */
+.project-banner-metrics {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  text-align: right;
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: 0.73rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+.banner-metric-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+
+.banner-metric-item span[id] {
+  color: var(--accent-cyan);
+  font-weight: 700;
+}
+
+.banner-metric-item .metric-highlight {
+  color: var(--accent-emerald);
+  font-weight: 700;
+}
+
+.banner-metric-item .metric-purple {
+  color: #c084fc;
+  font-weight: 700;
 }
 
 .project-content {
@@ -2294,5 +2336,19 @@ body::before {
   }
   .telemetry-stat-value {
     font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-banner {
+    min-height: 200px;
+    height: auto;
+    gap: 12px;
+  }
+  .project-banner-metrics {
+    position: static;
+    align-items: flex-start;
+    text-align: left;
+    margin-top: 6px;
   }
 }

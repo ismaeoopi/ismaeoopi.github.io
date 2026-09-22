@@ -337,6 +337,11 @@
             <div class="project-category-badge" style="color: #c084fc; border-color: rgba(168, 85, 247, 0.3); background: rgba(88, 28, 135, 0.4);">
               ★ SaaS & Plataforma Comercial
             </div>
+            <div class="project-banner-metrics">
+              <span class="banner-metric-item"><span class="metric-purple">Multiempresa</span> Cloud</span>
+              <span class="banner-metric-item"><span class="metric-purple">PDV</span> Offline-First</span>
+              <span class="banner-metric-item">Estoque, BOM &amp; Finanças</span>
+            </div>
             <div class="project-banner-code" style="color: rgba(216, 180, 254, 0.7);">
               &gt; purplesystem.com.br<br>
               &gt; Architecture: Multi-tenant Cloud + Offline-First POS<br>
@@ -378,6 +383,11 @@
           <div class="project-banner">
             <div class="project-banner-decor"></div>
             <div class="project-category-badge">SAP ERP & Logística</div>
+            <div class="project-banner-metrics">
+              <span class="banner-metric-item"><span class="metric-highlight">3</span> usuários diretos</span>
+              <span class="banner-metric-item"><span id="card-exp-hours">1.092</span> horas Economizadas</span>
+              <span class="banner-metric-item"><span id="card-exp-nfs">2.730</span> NF's recebidas</span>
+            </div>
             <div class="project-banner-code">
               &gt; ismaeoopi/rpa_Expedicao<br>
               &gt; Status: Production Active | Architecture: Flask + pywin32<br>
@@ -389,45 +399,6 @@
             <p class="project-desc">
               Solução corporativa completa empacotada em executável (.exe) autônomo com interface Dark Mode em Flask. Automatiza conferência de remessas, seleção de Unidades de Carga (UC), picking e geração de etiquetas FIP sem exigir instalação de Python nas máquinas dos operadores.
             </p>
-
-            <!-- Widget de Telemetria: Expedição SAP -->
-            <div class="project-telemetry-box telemetry-box-emerald">
-              <div class="project-telemetry-header">
-                <span class="project-telemetry-title">
-                  <span class="pulse-dot"></span>
-                  <span>TEMPO GANHO &bull; PRODUÇÃO ATIVA</span>
-                </span>
-                <span class="project-telemetry-date">Início: 19/05/2026</span>
-              </div>
-              <div class="telemetry-comparison-rule">
-                <span class="telemetry-pill-manual">3 usuários diretos</span>
-                <span class="telemetry-arrow">&times;</span>
-                <span>4h/dia economizadas</span>
-                <span class="telemetry-pill-saved">= 12h poupadas/dia útil</span>
-              </div>
-              <div class="telemetry-odometer-row">
-                <div class="telemetry-odometer-stat">
-                  <span class="telemetry-odometer-label">Tempo Total Economizado</span>
-                  <span class="telemetry-odometer-value" id="card-exp-hours">1.092 horas</span>
-                </div>
-                <div style="text-align: right;">
-                  <span class="telemetry-odometer-label">Impacto Tangível</span>
-                  <div style="font-size: 0.78rem; font-family: var(--font-mono); color: var(--accent-emerald);" id="card-exp-days">~137 dias úteis recuperados</div>
-                </div>
-              </div>
-              <div class="telemetry-sub-metrics-row">
-                <div class="telemetry-sub-metric">
-                  <span class="telemetry-sub-label">Notas Fiscais (NF-e)</span>
-                  <span class="telemetry-sub-value" id="card-exp-nfs">2.730 NF-e</span>
-                  <span class="telemetry-sub-desc">Média: 10 NF/dia por usuário</span>
-                </div>
-                <div class="telemetry-sub-metric" style="text-align: right;">
-                  <span class="telemetry-sub-label">Etiquetas FIP</span>
-                  <span class="telemetry-sub-value" id="card-exp-labels">2.184 etiquetas</span>
-                  <span class="telemetry-sub-desc">Média: 120 por semana</span>
-                </div>
-              </div>
-            </div>
 
             <div class="project-metrics-badge-wrap">
               <span class="project-metric-pill">📦 Expedição 100% Autônoma</span>
@@ -459,6 +430,11 @@
           <div class="project-banner">
             <div class="project-banner-decor"></div>
             <div class="project-category-badge">Playwright & Fretes</div>
+            <div class="project-banner-metrics" id="cabotagem-odometer-anchor">
+              <span class="banner-metric-item"><span class="metric-highlight">20</span> OF/dia útil</span>
+              <span class="banner-metric-item"><span id="card-cabot-hours">35h 50min</span> Economizadas</span>
+              <span class="banner-metric-item"><span id="card-cabot-ofs">1.720</span> OF's geradas</span>
+            </div>
             <div class="project-banner-code">
               &gt; sap_cabotagem_playwright.py<br>
               &gt; Engine: Playwright Headless + SAP COM<br>
@@ -470,42 +446,6 @@
             <p class="project-desc">
               Robô híbrido que opera o portal web de cabotagem e transportadoras via Playwright, cruza tabelas tarifárias com o módulo corporativo de fretes e parametriza custos e CT-es diretamente nas transações de Ordem de Frete do SAP.
             </p>
-
-            <!-- Widget de Telemetria: Cabotagem & Playwright -->
-            <div class="project-telemetry-box cabotagem-odometer-wrapper" id="cabotagem-odometer-anchor">
-              <div class="project-telemetry-header">
-                <span class="project-telemetry-title">
-                  <span class="pulse-dot"></span>
-                  <span>ODÔMETRO DINÂMICO &bull; PLAYWRIGHT WEB</span>
-                </span>
-                <span class="project-telemetry-date">Início: 25/05/2026</span>
-              </div>
-              <div class="telemetry-comparison-rule">
-                <span class="telemetry-pill-manual">Manual: 90s</span>
-                <span class="telemetry-arrow">&rarr;</span>
-                <span class="telemetry-pill-auto">Robô: 15s</span>
-                <span class="telemetry-pill-saved">Economia: 75s / OF (-83%)</span>
-              </div>
-              <div class="telemetry-odometer-row" id="card-cabot-display">
-                <div class="telemetry-odometer-stat">
-                  <span class="telemetry-odometer-label">Ordens de Frete (Volume: 20/dia útil)</span>
-                  <span class="telemetry-odometer-value cyan-val" id="card-cabot-ofs">1.720 OFs</span>
-                </div>
-                <div class="telemetry-odometer-stat" style="text-align: right;">
-                  <span class="telemetry-odometer-label">Tempo Recuperado (+75s/OF)</span>
-                  <span class="telemetry-odometer-value" id="card-cabot-hours">35h 50min</span>
-                </div>
-              </div>
-              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-top: 2px;">
-                <span style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono);" id="card-cabot-desc">
-                  Média de 1 OF por hora comercial &bull; Virada de ciclo ativa
-                </span>
-                <button type="button" class="btn-simulate-of" id="btn-simulate-of" title="Clique para testar o incremento do odômetro">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-                  <span>Simular Virada (+75s)</span>
-                </button>
-              </div>
-            </div>
 
             <div class="project-metrics-badge-wrap">
               <span class="project-metric-pill">🌐 Web RPA com Playwright</span>
@@ -536,6 +476,11 @@
           <div class="project-banner">
             <div class="project-banner-decor"></div>
             <div class="project-category-badge">Estoque & Packlists</div>
+            <div class="project-banner-metrics">
+              <span class="banner-metric-item"><span class="metric-highlight">4</span> usuários diretos</span>
+              <span class="banner-metric-item"><span id="card-est-hours">728</span> horas Economizadas</span>
+              <span class="banner-metric-item"><span id="card-est-days">1 FTE liberado</span> (~91 dias)</span>
+            </div>
             <div class="project-banner-code">
               &gt; processo_sap_estoque.py<br>
               &gt; Cloud: SharePoint Client Sync Active<br>
@@ -547,33 +492,6 @@
             <p class="project-desc">
               Engine de automação que sincroniza relatórios do Microsoft SharePoint, processa estruturas de bobinas e matérias-primas e executa em lote mais de 10 transações críticas do SAP (MIGO, PRDI, ADGI, BRID, CO01, CS15, MON, MSC, VL32).
             </p>
-
-            <!-- Widget de Telemetria: Estoque SAP -->
-            <div class="project-telemetry-box telemetry-box-emerald">
-              <div class="project-telemetry-header">
-                <span class="project-telemetry-title">
-                  <span class="pulse-dot"></span>
-                  <span>TEMPO GANHO &bull; 1 FTE LIBERADO</span>
-                </span>
-                <span class="project-telemetry-date">Início: 19/05/2026</span>
-              </div>
-              <div class="telemetry-comparison-rule">
-                <span class="telemetry-pill-manual">4 usuários diretos</span>
-                <span class="telemetry-arrow">&times;</span>
-                <span>2h/dia economizadas</span>
-                <span class="telemetry-pill-saved">= 8h poupadas/dia útil</span>
-              </div>
-              <div class="telemetry-odometer-row">
-                <div class="telemetry-odometer-stat">
-                  <span class="telemetry-odometer-label">Tempo Total Economizado</span>
-                  <span class="telemetry-odometer-value" id="card-est-hours">728 horas</span>
-                </div>
-                <div style="text-align: right;">
-                  <span class="telemetry-odometer-label">Equivalência no Negócio</span>
-                  <div style="font-size: 0.78rem; font-family: var(--font-mono); color: var(--accent-emerald);" id="card-est-days">~91 dias úteis (1 colaborador full-time)</div>
-                </div>
-              </div>
-            </div>
 
             <div class="project-metrics-badge-wrap">
               <span class="project-metric-pill">☁️ Integração SharePoint</span>
@@ -605,6 +523,11 @@
           <div class="project-banner">
             <div class="project-banner-decor"></div>
             <div class="project-category-badge">Frontend & Web</div>
+            <div class="project-banner-metrics">
+              <span class="banner-metric-item"><span class="metric-highlight">Deploy CI/CD</span> GitHub Pages</span>
+              <span class="banner-metric-item"><span class="metric-highlight">100%</span> Score Performance</span>
+              <span class="banner-metric-item">&lt;1s Carregamento</span>
+            </div>
             <div class="project-banner-code">
               &gt; ismaeoopi/jrcruz-site<br>
               &gt; Deploy: GitHub Pages (CI/CD Automated)<br>
