@@ -119,10 +119,10 @@ export async function syncOfflineSales(tenantId, offlineQueue) {
       summary: 'Solução corporativa completa em Python que automatiza separação de cargas, seleção de Unidades de Carga (UC), picking e integração direta com SAP GUI.',
       telemetry: {
         startDate: '19/05/2026',
-        formula: '2 horas/dia por usuário direto em 3 usuários = 6 horas economizadas por dia útil',
-        dailySavings: '6h / dia útil (30h / semana)',
-        benchmark: '~546 horas acumuladas (~68 dias úteis de trabalho manual poupados)',
-        impactDesc: 'Eliminação da conferência manual de remessas, seleção automatizada de UCs e etiquetas FIP sem erros de digitação no SAP.'
+        formula: '4 horas/dia por usuário direto em 3 usuários = 12 horas economizadas por dia útil',
+        dailySavings: '12h / dia útil (60h / semana)',
+        benchmark: '~1.092 horas acumuladas (~137 dias úteis de trabalho manual poupados)',
+        impactDesc: 'Eliminação da conferência manual de remessas, processamento de ~10 NF/dia por usuário, geração de ~120 etiquetas FIP/sem e seleção automatizada de UCs no SAP.'
       },
       problem: 'O time de expedição e logística enfrentava alto volume manual diário para conferir remessas de transferência, selecionar UCs e emitir ordens de frete no SAP, gerando gargalos de faturamento e risco de inconsistências de lote.',
       solution: 'Desenvolvimento de uma aplicação robusta em Python empacotada em executável (.exe) autônomo com interface local em Flask (Dark Mode). Integração com SAP GUI via pywin32, sincronização de relatórios operacionais com Microsoft SharePoint e módulo de Auto-Update silencioso via Git.',

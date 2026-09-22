@@ -110,21 +110,52 @@
       <!-- Coluna Direita: Métricas de Impacto (empilhadas) -->
       <div class="hero-metrics-col">
         <div class="hero-metrics-col-title">Impacto em Produção</div>
-        <div class="hero-metric-item">
-          <div class="metric-number">+45.000h</div>
-          <div class="metric-label">Horas Operacionais Economizadas</div>
+        
+        <!-- Card 1: Horas Economizadas (Soma de todos os projetos em tempo real) -->
+        <div class="hero-metric-item hero-metric-live">
+          <div class="metric-number text-emerald-glow" id="hero-stat-hours-wrap">
+            <span id="hero-stat-hours">+1.856h</span><span id="hero-stat-hours-live" class="hero-hours-live-tag">0m 00s</span>
+          </div>
+          <div class="metric-label">
+            <span>Horas Operacionais Economizadas</span>
+            <span class="hero-metric-sublabel">Soma de todos os projetos &bull; Ticker ativo</span>
+          </div>
         </div>
+
+        <!-- Card 2: Quantidade de Notas Fiscais Recebidas (substitui 100% Precisão) -->
         <div class="hero-metric-item">
-          <div class="metric-number">100%</div>
-          <div class="metric-label">Precisão em Lançamentos SAP</div>
+          <div class="metric-number text-cyan-glow" id="hero-stat-nfs">+2.730</div>
+          <div class="metric-label">
+            <span>Notas Fiscais (NF-e) Recebidas</span>
+            <span class="hero-metric-sublabel">Desde o deploy &bull; 10 NF/dia por usuário</span>
+          </div>
         </div>
+
+        <!-- Card 3: Quantidade de Etiquetas Geradas (substitui +10 Módulos) -->
         <div class="hero-metric-item">
-          <div class="metric-number">+10 Módulos</div>
-          <div class="metric-label">Rotinas Logísticas e Fiscais Ativas</div>
+          <div class="metric-number text-cyan-glow" id="hero-stat-labels">+2.184</div>
+          <div class="metric-label">
+            <span>Etiquetas FIP Geradas</span>
+            <span class="hero-metric-sublabel">Média de 120 etiquetas/semana</span>
+          </div>
         </div>
+
+        <!-- Card 4: Quantidade de Ordens de Frete (OF) Geradas (novo card adicionado) -->
+        <div class="hero-metric-item">
+          <div class="metric-number text-cyan-glow" id="hero-stat-ofs">+1.740</div>
+          <div class="metric-label">
+            <span>Ordens de Frete (OF) Geradas</span>
+            <span class="hero-metric-sublabel">Via Playwright Web &bull; 20 OF/dia útil</span>
+          </div>
+        </div>
+
+        <!-- Card 5: Confiabilidade Operacional -->
         <div class="hero-metric-item">
           <div class="metric-number">Zero Falhas</div>
-          <div class="metric-label">Tratamento Resiliente de Pop-ups</div>
+          <div class="metric-label">
+            <span>Tratamento Resiliente de Pop-ups</span>
+            <span class="hero-metric-sublabel">Resiliência nativa em telas SAP</span>
+          </div>
         </div>
       </div>
     </div>
@@ -300,56 +331,6 @@
         <p class="section-desc">Sistemas SaaS comerciais e robôs corporativos em produção com código fonte, arquitetura escalável e métricas comprovadas.</p>
       </div>
 
-      <!-- Cockpit de Telemetria em Tempo Real (Ganho de Tempo Real dos Robôs em Produção) -->
-      <div class="telemetry-cockpit reveal">
-        <div class="telemetry-cockpit-header">
-          <div class="telemetry-live-pill telemetry-live-pulse">
-            <span class="pulse-dot"></span>
-            <span>Telemetria em Tempo Real &bull; Robôs em Produção SAP</span>
-          </div>
-          <div class="telemetry-cockpit-subtitle">
-            Métricas ativas calculadas em dias úteis desde o deploy em maio/2026
-          </div>
-        </div>
-
-        <div class="telemetry-cockpit-grid">
-          <div class="telemetry-stat-card">
-            <div class="telemetry-stat-label">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-              <span>Tempo Total Economizado</span>
-            </div>
-            <div class="telemetry-stat-value text-emerald-glow" id="telem-total-hours">1.310h</div>
-            <div class="telemetry-stat-sub" id="telem-total-days">~164 dias de trabalho humano</div>
-          </div>
-
-          <div class="telemetry-stat-card">
-            <div class="telemetry-stat-label">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-              <span>Ordens de Frete (OF)</span>
-            </div>
-            <div class="telemetry-stat-value text-cyan-glow" id="telem-total-ofs">1.720</div>
-            <div class="telemetry-stat-sub">Sincronizadas via Playwright Web &bull; 75s/OF poupados</div>
-          </div>
-
-          <div class="telemetry-stat-card">
-            <div class="telemetry-stat-label">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-              <span>Ritmo Diário Economizado</span>
-            </div>
-            <div class="telemetry-stat-value" id="telem-daily-rate">14,4h / dia útil</div>
-            <div class="telemetry-stat-sub">Horas repetitivas eliminadas diariamente na operação</div>
-          </div>
-
-          <div class="telemetry-stat-card">
-            <div class="telemetry-stat-label">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-              <span>Confiabilidade Operacional</span>
-            </div>
-            <div class="telemetry-stat-value text-emerald-glow">100%</div>
-            <div class="telemetry-stat-sub">Zero erros de digitação &bull; Baixas auditadas no SAP</div>
-          </div>
-        </div>
-      </div>
 
       <!-- Filtros de Categorias -->
       <div class="project-filters reveal">
@@ -436,17 +417,29 @@
               <div class="telemetry-comparison-rule">
                 <span class="telemetry-pill-manual">3 usuários diretos</span>
                 <span class="telemetry-arrow">&times;</span>
-                <span>2h/dia economizadas</span>
-                <span class="telemetry-pill-saved">= 6h poupadas/dia útil</span>
+                <span>4h/dia economizadas</span>
+                <span class="telemetry-pill-saved">= 12h poupadas/dia útil</span>
               </div>
               <div class="telemetry-odometer-row">
                 <div class="telemetry-odometer-stat">
                   <span class="telemetry-odometer-label">Tempo Total Economizado</span>
-                  <span class="telemetry-odometer-value" id="card-exp-hours">546 horas</span>
+                  <span class="telemetry-odometer-value" id="card-exp-hours">1.092 horas</span>
                 </div>
                 <div style="text-align: right;">
                   <span class="telemetry-odometer-label">Impacto Tangível</span>
-                  <div style="font-size: 0.78rem; font-family: var(--font-mono); color: var(--accent-emerald);" id="card-exp-days">~68 dias úteis recuperados</div>
+                  <div style="font-size: 0.78rem; font-family: var(--font-mono); color: var(--accent-emerald);" id="card-exp-days">~137 dias úteis recuperados</div>
+                </div>
+              </div>
+              <div class="telemetry-sub-metrics-row">
+                <div class="telemetry-sub-metric">
+                  <span class="telemetry-sub-label">Notas Fiscais (NF-e)</span>
+                  <span class="telemetry-sub-value" id="card-exp-nfs">2.730 NF-e</span>
+                  <span class="telemetry-sub-desc">Média: 10 NF/dia por usuário</span>
+                </div>
+                <div class="telemetry-sub-metric" style="text-align: right;">
+                  <span class="telemetry-sub-label">Etiquetas FIP</span>
+                  <span class="telemetry-sub-value" id="card-exp-labels">2.184 etiquetas</span>
+                  <span class="telemetry-sub-desc">Média: 120 por semana</span>
                 </div>
               </div>
             </div>

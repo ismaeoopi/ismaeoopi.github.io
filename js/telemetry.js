@@ -37,8 +37,12 @@
     expedicao: {
       startDate: new Date('2026-05-19T00:00:00'),
       users: 3,
-      hoursPerUserDay: 2, // 6h por dia útil
-      get hoursPerBusinessDay() { return this.users * this.hoursPerUserDay; }
+      hoursPerUserDay: 4, // 4h por usuário por dia útil (12h/dia útil no total)
+      nfsPerUserDay: 10,  // média de 10 NF por dia útil por usuário (30 NF/dia no total)
+      labelsPerWeek: 120, // média de 120 etiquetas por semana (24 etiquetas/dia útil)
+      get hoursPerBusinessDay() { return this.users * this.hoursPerUserDay; },
+      get nfsPerBusinessDay() { return this.users * this.nfsPerUserDay; },
+      get labelsPerBusinessDay() { return this.labelsPerWeek / 5; }
     },
 
     estoque: {
@@ -89,7 +93,8 @@
     liveAddedOfs: 0,
     liveAddedSeconds: 0,
     isCycleRunning: true,
-    cycleTimer: null
+    cycleTimer: null,
+    secondTimer: null
   };
 
   /**
@@ -130,19 +135,23 @@
     // 2. Cabotagem
     const baseOfs = bDaysCabotagem * TELEMETRY_CONFIG.cabotagem.ofsPerBusinessDay;
     const totalOfs = baseOfs + state.liveAddedOfs;
-    const totalCabotagemSeconds = (totalOfs * TELEMETRY_CONFIG.cabotagem.savedSecondsPerOF) + state.liveAddedSeconds;
+    const totalCabotagemSeconds = (totalOfs * TELEMETRY_CONFIG.cabotagem.savedSecondsPerOF);
     const totalCabotagemHours = totalCabotagemSeconds / 3600;
 
     // 3. Expedição SAP
     const totalExpedicaoHours = bDaysExpedicao * TELEMETRY_CONFIG.expedicao.hoursPerBusinessDay;
     const expedicaoDaysSaved = Math.round(totalExpedicaoHours / 8);
+    const totalExpedicaoNfs = Math.round(bDaysExpedicao * TELEMETRY_CONFIG.expedicao.nfsPerBusinessDay);
+    const totalExpedicaoLabels = Math.round(bDaysExpedicao * TELEMETRY_CONFIG.expedicao.labelsPerBusinessDay);
 
     // 4. Estoque SAP MIGO/PRDI
     const totalEstoqueHours = bDaysEstoque * TELEMETRY_CONFIG.estoque.hoursPerBusinessDay;
     const estoqueDaysSaved = Math.round(totalEstoqueHours / 8);
 
-    // 5. Totais Consolidados
-    const totalHoursAll = totalCabotagemHours + totalExpedicaoHours + totalEstoqueHours;
+    // 5. Totais Consolidados (Soma de todos os projetos + Odômetro ao vivo)
+    const baseTotalSeconds = (totalExpedicaoHours * 3600) + (totalEstoqueHours * 3600) + totalCabotagemSeconds;
+    const currentTotalSeconds = baseTotalSeconds + state.liveAddedSeconds;
+    const totalHoursAll = currentTotalSeconds / 3600;
     const totalDaysAll = Math.round(totalHoursAll / 8);
     const dailyHoursSaved = TELEMETRY_CONFIG.expedicao.hoursPerBusinessDay +
                             TELEMETRY_CONFIG.estoque.hoursPerBusinessDay +
@@ -164,7 +173,9 @@
         daysSaved: expedicaoDaysSaved,
         dailyHours: TELEMETRY_CONFIG.expedicao.hoursPerBusinessDay,
         users: TELEMETRY_CONFIG.expedicao.users,
-        bDays: bDaysExpedicao
+        bDays: bDaysExpedicao,
+        totalNfs: totalExpedicaoNfs,
+        totalLabels: totalExpedicaoLabels
       },
       estoque: {
         totalHours: totalEstoqueHours,
@@ -175,9 +186,12 @@
       },
       consolidated: {
         totalHours: totalHoursAll,
+        totalSeconds: currentTotalSeconds,
         totalDays: totalDaysAll,
         dailyHours: dailyHoursSaved,
-        totalOfs
+        totalOfs,
+        totalNfs: totalExpedicaoNfs,
+        totalLabels: totalExpedicaoLabels
       }
     };
   }
@@ -188,7 +202,32 @@
   function renderDOM(triggerAnimation = false) {
     const metrics = computeMetrics();
 
-    // 1. Dashboard de Telemetria Consolidado
+    // 1. Métricas do Hero (Coluna Direita - Impacto em Produção)
+    const elHeroHours = document.getElementById('hero-stat-hours');
+    const elHeroHoursLive = document.getElementById('hero-stat-hours-live');
+    const elHeroNfs = document.getElementById('hero-stat-nfs');
+    const elHeroLabels = document.getElementById('hero-stat-labels');
+    const elHeroOfs = document.getElementById('hero-stat-ofs');
+
+    if (elHeroHours) {
+      elHeroHours.textContent = `+${formatNumber(Math.floor(metrics.consolidated.totalHours))}h`;
+    }
+    if (elHeroHoursLive) {
+      const liveMins = Math.floor((metrics.consolidated.totalSeconds % 3600) / 60);
+      const liveSecs = Math.floor(metrics.consolidated.totalSeconds % 60);
+      elHeroHoursLive.textContent = `${liveMins}m ${String(liveSecs).padStart(2, '0')}s`;
+    }
+    if (elHeroNfs) {
+      elHeroNfs.textContent = `+${formatNumber(metrics.expedicao.totalNfs)}`;
+    }
+    if (elHeroLabels) {
+      elHeroLabels.textContent = `+${formatNumber(metrics.expedicao.totalLabels)}`;
+    }
+    if (elHeroOfs) {
+      elHeroOfs.textContent = `+${formatNumber(metrics.cabotagem.totalOfs)}`;
+    }
+
+    // 2. Dashboard Consolidado (caso exista)
     const elTotalHours = document.getElementById('telem-total-hours');
     const elTotalDays = document.getElementById('telem-total-days');
     const elTotalOfs = document.getElementById('telem-total-ofs');
@@ -199,7 +238,7 @@
     if (elTotalOfs) elTotalOfs.textContent = formatNumber(metrics.consolidated.totalOfs);
     if (elDailyRate) elDailyRate.textContent = `${formatNumber(metrics.consolidated.dailyHours, 1)}h / dia útil`;
 
-    // 2. Card Cabotagem
+    // 3. Card Cabotagem
     const elCabotOfs = document.getElementById('card-cabot-ofs');
     const elCabotHours = document.getElementById('card-cabot-hours');
     const elCabotSavedDesc = document.getElementById('card-cabot-desc');
@@ -210,13 +249,18 @@
       elCabotSavedDesc.textContent = `${formatNumber(metrics.cabotagem.bDays)} dias úteis em produção (~${metrics.cabotagem.bDays * 20} OFs base)`;
     }
 
-    // 3. Card Expedição
+    // 4. Card Expedição
     const elExpHours = document.getElementById('card-exp-hours');
     const elExpDays = document.getElementById('card-exp-days');
+    const elExpNfs = document.getElementById('card-exp-nfs');
+    const elExpLabels = document.getElementById('card-exp-labels');
+
     if (elExpHours) elExpHours.textContent = `${formatNumber(metrics.expedicao.totalHours)} horas`;
     if (elExpDays) elExpDays.textContent = `~${formatNumber(metrics.expedicao.daysSaved)} dias úteis economizados`;
+    if (elExpNfs) elExpNfs.textContent = `${formatNumber(metrics.expedicao.totalNfs)} NF-e`;
+    if (elExpLabels) elExpLabels.textContent = `${formatNumber(metrics.expedicao.totalLabels)} etiquetas`;
 
-    // 4. Card Estoque
+    // 5. Card Estoque
     const elEstHours = document.getElementById('card-est-hours');
     const elEstDays = document.getElementById('card-est-days');
     if (elEstHours) elEstHours.textContent = `${formatNumber(metrics.estoque.totalHours)} horas`;
@@ -234,6 +278,7 @@
    */
   function triggerOfCycle(manual = false) {
     state.liveAddedOfs += 1;
+    state.liveAddedSeconds += 75;
     renderDOM(true);
 
     // Cria o badge flutuante "+75s"
@@ -271,13 +316,39 @@
       b.classList.add('pulse-active');
       setTimeout(() => b.classList.remove('pulse-active'), 800);
     });
+
+    // Pulso no Hero Odômetro
+    const heroWrap = document.getElementById('hero-stat-hours-wrap');
+    if (heroWrap) {
+      heroWrap.classList.remove('odometer-tick');
+      void heroWrap.offsetWidth;
+      heroWrap.classList.add('odometer-tick');
+    }
+
+    // Pulso nas OFs do Hero
+    const heroOfs = document.getElementById('hero-stat-ofs');
+    if (heroOfs) {
+      heroOfs.classList.remove('odometer-tick');
+      void heroOfs.offsetWidth;
+      heroOfs.classList.add('odometer-tick');
+    }
   }
 
   /**
-   * Inicializa o loop contínuo de virada de OF
+   * Inicializa o loop contínuo de virada de OF e odômetro de tempo
    */
   function startLiveCycle() {
-    // A cada 9 segundos simula uma virada de ciclo de OF em produção
+    // 1. Ticker contínuo a cada segundo acumulando tempo da frota de robôs em produção
+    if (state.secondTimer) clearInterval(state.secondTimer);
+    state.secondTimer = setInterval(() => {
+      if (state.isCycleRunning) {
+        // A frota economiza ~20.42 horas por dia útil (~2.55s por segundo de turno)
+        state.liveAddedSeconds += 2.55;
+        renderDOM(false);
+      }
+    }, 1000);
+
+    // 2. A cada 9 segundos simula uma virada de ciclo de OF em produção
     if (state.cycleTimer) clearInterval(state.cycleTimer);
     state.cycleTimer = setInterval(() => {
       if (state.isCycleRunning) {
