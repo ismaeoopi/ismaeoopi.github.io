@@ -2614,8 +2614,8 @@ body::before {
 
 .odometer-floating-badge {
   position: absolute;
-  top: -12px;
-  right: 14px;
+  top: 18px;
+  right: 20px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
